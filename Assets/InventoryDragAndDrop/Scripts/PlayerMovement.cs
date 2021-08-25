@@ -1,7 +1,13 @@
-﻿using System.Collections;
+﻿
+///Permission to distribute belongs to Jess_StPierre on the Unity Asset Store. If you bought this asset, you have permission to use it in your project.
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// This script is for testing purposes, you can definitely replace it with your own player movement.
+/// </summary>
 public class PlayerMovement : MonoBehaviour
 {
     [Tooltip("Speed of movement for all axis")]
@@ -49,8 +55,8 @@ public class PlayerMovement : MonoBehaviour
         if (Input.GetKey(posButton) && Input.GetKey(negButton)) DirOutput = 0f;
         else if (Input.GetKey(posButton) || Input.GetKey(negButton))
         {
-            if (Input.GetKey(posButton)) DirOutput = -1f;
-            if (Input.GetKey(negButton)) DirOutput = 1f;
+            if (Input.GetKey(posButton)) DirOutput = 1f;
+            if (Input.GetKey(negButton)) DirOutput = -1f;
         }
         else DirOutput = 0f;
 
