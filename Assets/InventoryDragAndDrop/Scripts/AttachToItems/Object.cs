@@ -10,8 +10,8 @@ using UnityEngine;
 /// </summary>
 public class Object : MonoBehaviour
 {
-   // public InventoryItem inventoryItem;
-   // public LoadoutItem loadoutItem;
+    public InventoryItem inventoryItem;
+    public LoadoutItem loadoutItem;
 
     void Awake()
     {
@@ -32,7 +32,7 @@ public class Object : MonoBehaviour
     {
         if(other.gameObject.CompareTag("Player"))
         {
-          //  UIEventBroker.TriggerOnPickup(); //popup
+            UIEventBroker.TriggerOnShowPopup();
         }
     }
 
@@ -40,7 +40,7 @@ public class Object : MonoBehaviour
     {
         if(other.gameObject.CompareTag("Player"))
         {
-            //  UIEventBroker.TriggerOnHidePickup(); //popup
+              UIEventBroker.TriggerOnHidePopup();
         }
     }
 
@@ -48,9 +48,9 @@ public class Object : MonoBehaviour
     {
         if(obj == this.gameObject)
         {
-          //  UIEventBroker.TriggerOnAddToSlots(this.gameObject, inventoryItem, loadoutItem);
+            UIEventBroker.TriggerOnAddToSlots(this.gameObject, inventoryItem, loadoutItem);
             this.gameObject.SetActive(false);
-            //   UIEventBroker.TriggerOnHidePickup(); //popup
+            UIEventBroker.TriggerOnHidePopup();
         }
     }
 }

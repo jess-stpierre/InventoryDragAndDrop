@@ -13,9 +13,38 @@ public class UIEventBroker
 {
 	public delegate bool BoolReturnEvent();
 	public static event BoolReturnEvent OnCheckPopupStatus;
+	public delegate void GameObjectEvent(GameObject obj, InventoryItem inventoryItem, LoadoutItem loadoutItem);
+	public static event GameObjectEvent OnAddToSlots;
+	public delegate void VoidEvent();
+	public static event VoidEvent OnHidePopup, OnShowPopup, OnOpenInventory, OnCloseInventory;
 
 	public static bool TriggerOnCheckPopupStatus()
 	{
 		return OnCheckPopupStatus.Invoke();
+	}
+
+	public static void TriggerOnOpenInventory()
+	{
+		OnOpenInventory?.Invoke();
+	}
+
+	public static void TriggerOnCloseInventory()
+	{
+		OnCloseInventory?.Invoke();
+	}
+
+	public static void TriggerOnShowPopup()
+	{
+		OnShowPopup?.Invoke();
+	}
+
+	public static void TriggerOnHidePopup()
+	{
+		OnHidePopup?.Invoke();
+	}
+
+	public static void TriggerOnAddToSlots(GameObject obj, InventoryItem inventoryItem, LoadoutItem loadoutItem)
+	{
+		OnAddToSlots?.Invoke(obj, inventoryItem, loadoutItem);
 	}
 }
