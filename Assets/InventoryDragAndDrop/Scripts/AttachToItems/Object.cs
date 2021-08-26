@@ -32,7 +32,7 @@ public class Object : MonoBehaviour
     {
         if(other.gameObject.CompareTag("Player"))
         {
-            UIEventBroker.TriggerOnShowPopup();
+            UIEventBroker.TriggerOnShowPopup(); //if the player is within the trigger zone collider than show "press e to interact" popup
         }
     }
 
@@ -40,7 +40,7 @@ public class Object : MonoBehaviour
     {
         if(other.gameObject.CompareTag("Player"))
         {
-              UIEventBroker.TriggerOnHidePopup();
+              UIEventBroker.TriggerOnHidePopup(); //if the player is within the trigger zone collider than hide "press e to interact" popup
         }
     }
 

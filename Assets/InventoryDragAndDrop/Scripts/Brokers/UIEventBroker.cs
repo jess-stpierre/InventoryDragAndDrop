@@ -12,7 +12,7 @@ using UnityEngine;
 public class UIEventBroker
 {
 	public delegate bool BoolReturnEvent();
-	public static event BoolReturnEvent OnCheckPopupStatus;
+	public static event BoolReturnEvent OnCheckPopupStatus, OnCheckInventoryStatus;
 	public delegate void GameObjectEvent(GameObject obj, InventoryItem inventoryItem, LoadoutItem loadoutItem);
 	public static event GameObjectEvent OnAddToSlots;
 	public delegate void VoidEvent();
@@ -46,5 +46,10 @@ public class UIEventBroker
 	public static void TriggerOnAddToSlots(GameObject obj, InventoryItem inventoryItem, LoadoutItem loadoutItem)
 	{
 		OnAddToSlots?.Invoke(obj, inventoryItem, loadoutItem);
+	}
+
+	public static bool TriggerOnCheckInventoryStatus()
+	{
+		return OnCheckInventoryStatus.Invoke();
 	}
 }
