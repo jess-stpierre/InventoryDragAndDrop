@@ -17,8 +17,8 @@ public class Object : MonoBehaviour
     /// <summary>
     /// Unity Events allow you to hook up any public function in a script
     /// </summary>
-    //[SerializeField] private UnityEvent showPopup; 
-    //[SerializeField] private UnityEvent hidePopup;
+    [SerializeField] private UnityEvent showPopup; 
+    [SerializeField] private UnityEvent hidePopup;
 
     private void Awake()
     {

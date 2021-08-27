@@ -12,7 +12,8 @@ public class PlayerInventory : MonoBehaviour
 {
 	[Header("Default button to interact is E, changeable below")]
 	[SerializeField] KeyCode interactKey = KeyCode.E;
-	[Header(" ")]
+    [Header(" ")]
+    [SerializeField] private bool havePressInteractPopUp = true;
 	private GameObject interactedOBJ;
 
     void Update()
