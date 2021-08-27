@@ -21,12 +21,16 @@ public class PlayerInventory : MonoBehaviour
         PickupOBJ();
     }
 
-    /// <summary>
-    /// Can completely eliminate the first if(statement), if you don't want the popup "press E to interact"
-    /// </summary>
     private void PickupOBJ()
     {
-        if (UIEventBroker.TriggerOnCheckPopupStatus()) //returns true if there is a pop up showed on screen saying "press E to interact"
+        if (havePressInteractPopUp && UIEventBroker.TriggerOnCheckPopupStatus()) //returns true if there is a pop up showed on screen saying "press E to interact"
+        {
+            if (Input.GetKeyDown(interactKey))
+            {
+                PlayerEventBroker.TriggerOnAttemptPickup(interactedOBJ); //send to all objects with the "Object" script attached that we want to pickup the object in the input
+            }
+        }
+        else if (havePressInteractPopUp == false)
         {
             if (Input.GetKeyDown(interactKey))
             {
