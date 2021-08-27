@@ -4,6 +4,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 /// <summary>
 /// Please attach this script to any gameObject that you want to be pickable and placed inside this inventory system
@@ -13,7 +14,13 @@ public class Object : MonoBehaviour
     public InventoryItem inventoryItem;
     public LoadoutItem loadoutItem;
 
-    void Awake()
+    /// <summary>
+    /// Unity Events allow you to hook up any public function in a script
+    /// </summary>
+    //[SerializeField] private UnityEvent showPopup; 
+    //[SerializeField] private UnityEvent hidePopup;
+
+    private void Awake()
     {
         PlayerEventBroker.OnAttemptPickup += SetOnAttemptPickup;
     }
@@ -44,6 +51,9 @@ public class Object : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// For when player attempts to pickup the object it interacted with
+    /// </summary>
     private void SetOnAttemptPickup(GameObject obj)
     {
         if(obj == this.gameObject)
