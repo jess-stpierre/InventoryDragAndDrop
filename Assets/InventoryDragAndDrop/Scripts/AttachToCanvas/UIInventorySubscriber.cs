@@ -12,9 +12,9 @@ public class UIInventorySubscriber : MonoBehaviour
     [SerializeField] private List<GameObject> loadoutSlots = new List<GameObject>();
     [SerializeField] private GameObject itemSlotPrefab;
     [SerializeField] private GameObject inventoryParent;
+    
 
-    [Header("inventoryList is only for visual testing purposes. DO NOT ADD ANYTHING IN THAT INSPECTOR.")]
-    [SerializeField] private List<GameObject> inventoryList = new List<GameObject>();
+    //list all items??
 
      void Awake()
     {
@@ -72,18 +72,24 @@ public class UIInventorySubscriber : MonoBehaviour
 
     private void ModularizeAddingToSlots(GameObject slotOBJ, GameObject obj, InventoryItem inventoryItem, LoadoutItem loadoutItem)
 	{
+        GameObject objectAdded = Instantiate(itemSlotPrefab, slotOBJ.transform);
         var item = (dynamic)null;
 
-        if (inventoryItem != null) item = inventoryItem;
-        if (loadoutItem != null) item = loadoutItem;
-
-        GameObject objectAdded = Instantiate(itemSlotPrefab, slotOBJ.transform);
+        if (inventoryItem != null)
+        {
+            item = inventoryItem;
+            objectAdded.GetComponent<Object>().inventoryItem = item;
+        }
+        if (loadoutItem != null)
+        {
+            item = loadoutItem;
+            objectAdded.GetComponent<Object>().loadoutItem = item;
+        }
 
 		Sprite itemImage = item.itemImage;
         objectAdded.GetComponent<Image>().sprite = itemImage;
         objectAdded.transform.GetChild(0).gameObject.GetComponent<Text>().text = item.itemName;
 
-        inventoryList.Add(obj);
     }
 
     private void SetOnOpenInventory()
