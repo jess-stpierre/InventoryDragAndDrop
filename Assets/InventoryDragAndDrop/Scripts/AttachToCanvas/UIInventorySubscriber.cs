@@ -9,7 +9,6 @@ using UnityEngine.UI;
 public class UIInventorySubscriber : MonoBehaviour
 {
     [SerializeField] private List<GameObject> inventorySlots = new List<GameObject>();
-    [SerializeField] private List<GameObject> loadoutSlots = new List<GameObject>();
     [SerializeField] private GameObject itemSlotPrefab;
     [SerializeField] private GameObject inventoryParent;
     
@@ -32,7 +31,7 @@ public class UIInventorySubscriber : MonoBehaviour
         UIEventBroker.OnCheckInventoryStatus -= SetOnCheckInventoryStatus;
     }
 
-    private void SetOnAddToSlots(GameObject obj, InventoryItem inventoryItem, LoadoutItem loadoutItem)
+    private void SetOnAddToSlots(GameObject obj, InventoryItem inventoryItem)
     {
         if(inventoryItem != null)
         {
@@ -46,44 +45,22 @@ public class UIInventorySubscriber : MonoBehaviour
                     //objectAdded.transform.GetChild(0).gameObject.GetComponent<Text>().text = inventoryItem.itemName;
                     //inventoryList.Add(obj);
 
-                    ModularizeAddingToSlots(inventorySlots[i], obj, inventoryItem, loadoutItem);
+                    ModularizeAddingToSlots(inventorySlots[i], obj, inventoryItem);
                     break;
                 }
             }  
         }
-        else if(loadoutItem != null)
-        {
-            for (int j = 0; j < loadoutSlots.Count; j++)
-            {
-                if(loadoutSlots[j].transform.childCount == 0)
-                {
-                    //no copy pasting, created a new function with above code to be re-used
-                    //GameObject objectAdded = Instantiate(objectPrefab, loadoutSlots[j].transform);
-                    //objectAdded.GetComponent<Image>().sprite = loadoutItem.itemImage;
-                    //objectAdded.transform.GetChild(0).gameObject.GetComponent<Text>().text = loadoutItem.itemName;
-                    //inventoryList.Add(obj);
-
-                    ModularizeAddingToSlots(loadoutSlots[j], obj, inventoryItem, loadoutItem);
-                    break;
-                }
-            }
-        }
     }
 
-    private void ModularizeAddingToSlots(GameObject slotOBJ, GameObject obj, InventoryItem inventoryItem, LoadoutItem loadoutItem)
+    private void ModularizeAddingToSlots(GameObject slotOBJ, GameObject obj, InventoryItem inventoryItem)
 	{
         GameObject objectAdded = Instantiate(itemSlotPrefab, slotOBJ.transform);
-        var item = (dynamic)null;
+        InventoryItem item = null;
 
         if (inventoryItem != null)
         {
             item = inventoryItem;
             objectAdded.GetComponent<Object>().inventoryItem = item;
-        }
-        if (loadoutItem != null)
-        {
-            item = loadoutItem;
-            objectAdded.GetComponent<Object>().loadoutItem = item;
         }
 
 		Sprite itemImage = item.itemImage;

@@ -13,7 +13,6 @@ using UnityEngine.Events;
 public class Object : MonoBehaviour
 {
     public InventoryItem inventoryItem;
-    public LoadoutItem loadoutItem;
 
     /// <summary>
     /// Unity Events allow you to hook up any public function in a script
@@ -71,7 +70,7 @@ public class Object : MonoBehaviour
     {
         if(obj == this.gameObject)
         {
-            UIEventBroker.TriggerOnAddToSlots(this.gameObject, inventoryItem, loadoutItem);
+            UIEventBroker.TriggerOnAddToSlots(this.gameObject, inventoryItem);
             this.gameObject.SetActive(false);
             hidePopup.Invoke();
         }

@@ -13,7 +13,7 @@ public class UIEventBroker
 {
 	public delegate bool BoolReturnEvent();
 	public static event BoolReturnEvent OnCheckPopupStatus, OnCheckInventoryStatus;
-	public delegate void GameObjectEvent(GameObject obj, InventoryItem inventoryItem, LoadoutItem loadoutItem);
+	public delegate void GameObjectEvent(GameObject obj, InventoryItem inventoryItem);
 	public static event GameObjectEvent OnAddToSlots;
 	public delegate void VoidEvent();
 	public static event VoidEvent OnOpenInventory, OnCloseInventory;
@@ -33,9 +33,9 @@ public class UIEventBroker
 		OnCloseInventory?.Invoke();
 	}
 
-	public static void TriggerOnAddToSlots(GameObject obj, InventoryItem inventoryItem, LoadoutItem loadoutItem)
+	public static void TriggerOnAddToSlots(GameObject obj, InventoryItem inventoryItem)
 	{
-		OnAddToSlots?.Invoke(obj, inventoryItem, loadoutItem);
+		OnAddToSlots?.Invoke(obj, inventoryItem);
 	}
 
 	public static bool TriggerOnCheckInventoryStatus()
