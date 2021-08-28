@@ -40,10 +40,9 @@ public class UIInventorySubscriber : MonoBehaviour
                 if(inventorySlots[i].transform.childCount == 0)
                 {
                     //no copy pasting, created a new function with above code to be re-used
-                    //GameObject objectAdded = Instantiate(objectPrefab, slots[i].transform);
-                    //objectAdded.GetComponent<Image>().sprite = inventoryItem.itemImage;
-                    //objectAdded.transform.GetChild(0).gameObject.GetComponent<Text>().text = inventoryItem.itemName;
-                    //inventoryList.Add(obj);
+                   //// GameObject objectAdded = Instantiate(itemSlotPrefab, inventorySlots[i].transform);
+                   // objectAdded.GetComponent<Image>().sprite = inventoryItem.itemImage;
+                   // objectAdded.transform.GetChild(0).gameObject.GetComponent<Text>().text = inventoryItem.itemName;
 
                     ModularizeAddingToSlots(inventorySlots[i], obj, inventoryItem);
                     break;
@@ -55,17 +54,11 @@ public class UIInventorySubscriber : MonoBehaviour
     private void ModularizeAddingToSlots(GameObject slotOBJ, GameObject obj, InventoryItem inventoryItem)
 	{
         GameObject objectAdded = Instantiate(itemSlotPrefab, slotOBJ.transform);
-        InventoryItem item = null;
+        objectAdded.GetComponent<Object>().inventoryItem = inventoryItem;
 
-        if (inventoryItem != null)
-        {
-            item = inventoryItem;
-            objectAdded.GetComponent<Object>().inventoryItem = item;
-        }
-
-		Sprite itemImage = item.itemImage;
+		Sprite itemImage = inventoryItem.itemImage;
         objectAdded.GetComponent<Image>().sprite = itemImage;
-        objectAdded.transform.GetChild(0).gameObject.GetComponent<Text>().text = item.itemName;
+        objectAdded.transform.GetChild(0).gameObject.GetComponent<Text>().text = inventoryItem.itemName;
 
     }
 
