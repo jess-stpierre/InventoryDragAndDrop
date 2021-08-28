@@ -1,6 +1,7 @@
 ﻿
 ///Permission to distribute belongs to Jess_StPierre on the Unity Asset Store. If you bought this asset, you have permission to use it in your project.
 
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -19,28 +20,38 @@ public class Object : MonoBehaviour
     /// </summary>
     [SerializeField] private UnityEvent showPopup; 
     [SerializeField] private UnityEvent hidePopup;
+    private bool popupActive = false;
 
     private void Awake()
     {
         PlayerEventBroker.OnAttemptPickup += SetOnAttemptPickup;
+        UIEventBroker.OnCheckPopupStatus += SetOnCheckPopupStatus;
     }
 
     private void OnDestroy() 
     {
         PlayerEventBroker.OnAttemptPickup -= SetOnAttemptPickup;
+        UIEventBroker.OnCheckPopupStatus -= SetOnCheckPopupStatus;
     }
 
     private void OnDisable() 
     {
         PlayerEventBroker.OnAttemptPickup -= SetOnAttemptPickup;
+        UIEventBroker.OnCheckPopupStatus -= SetOnCheckPopupStatus;
     }
 
-    private void OnTriggerEnter(Collider other) 
+	private bool SetOnCheckPopupStatus()
+	{
+        return popupActive;
+	}
+
+	private void OnTriggerEnter(Collider other) 
     {
         if(other.gameObject.CompareTag("Player"))
         {
             //if the player is within the trigger zone collider than show "press e to interact" popup
             showPopup.Invoke();
+            popupActive = true;
         }
     }
 
@@ -49,6 +60,7 @@ public class Object : MonoBehaviour
         if(other.gameObject.CompareTag("Player"))
         {
             hidePopup.Invoke();
+            popupActive = false;
         }
     }
 
@@ -61,7 +73,7 @@ public class Object : MonoBehaviour
         {
             UIEventBroker.TriggerOnAddToSlots(this.gameObject, inventoryItem, loadoutItem);
             this.gameObject.SetActive(false);
-            UIEventBroker.TriggerOnHidePopup();
+            hidePopup.Invoke();
         }
     }
 }
