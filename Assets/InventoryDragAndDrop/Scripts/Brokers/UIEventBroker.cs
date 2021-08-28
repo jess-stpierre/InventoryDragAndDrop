@@ -16,7 +16,7 @@ public class UIEventBroker
 	public delegate void GameObjectEvent(GameObject obj, InventoryItem inventoryItem, LoadoutItem loadoutItem);
 	public static event GameObjectEvent OnAddToSlots;
 	public delegate void VoidEvent();
-	public static event VoidEvent OnHidePopup, OnShowPopup, OnOpenInventory, OnCloseInventory;
+	public static event VoidEvent OnOpenInventory, OnCloseInventory;
 
 	public static bool TriggerOnCheckPopupStatus()
 	{
@@ -31,16 +31,6 @@ public class UIEventBroker
 	public static void TriggerOnCloseInventory()
 	{
 		OnCloseInventory?.Invoke();
-	}
-
-	public static void TriggerOnShowPopup()
-	{
-		OnShowPopup?.Invoke();
-	}
-
-	public static void TriggerOnHidePopup()
-	{
-		OnHidePopup?.Invoke();
 	}
 
 	public static void TriggerOnAddToSlots(GameObject obj, InventoryItem inventoryItem, LoadoutItem loadoutItem)
