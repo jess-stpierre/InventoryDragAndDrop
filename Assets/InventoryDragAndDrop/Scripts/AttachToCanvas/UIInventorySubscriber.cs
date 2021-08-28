@@ -1,15 +1,19 @@
-﻿using System.Collections;
+﻿
+///Permission to distribute belongs to Jess_StPierre on the Unity Asset Store. If you bought this asset, you have permission to use it in your project.
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class UIInventorySubscriber : MonoBehaviour
 {
-    [SerializeField] private List<GameObject> slots = new List<GameObject>();
+    [SerializeField] private List<GameObject> inventorySlots = new List<GameObject>();
     [SerializeField] private List<GameObject> loadoutSlots = new List<GameObject>();
-    [SerializeField] private GameObject objectPrefab;
+    [SerializeField] private GameObject itemSlotPrefab;
     [SerializeField] private GameObject inventoryParent;
 
+    [Header("inventoryList is only for visual testing purposes. DO NOT ADD ANYTHING IN THAT INSPECTOR.")]
     [SerializeField] private List<GameObject> inventoryList = new List<GameObject>();
 
      void Awake()
@@ -32,15 +36,17 @@ public class UIInventorySubscriber : MonoBehaviour
     {
         if(inventoryItem != null)
         {
-            for (int i = 0; i < slots.Count; i++)
+            for (int i = 0; i < inventorySlots.Count; i++)
             {
-                if(slots[i].transform.childCount == 0)
+                if(inventorySlots[i].transform.childCount == 0)
                 {
                     //no copy pasting, created a new function with above code to be re-used
-                    GameObject objectAdded = Instantiate(objectPrefab, slots[i].transform);
-                    objectAdded.GetComponent<Image>().sprite = inventoryItem.itemImage;
-                    objectAdded.transform.GetChild(0).gameObject.GetComponent<Text>().text = inventoryItem.itemName;
-                    inventoryList.Add(obj);
+                    //GameObject objectAdded = Instantiate(objectPrefab, slots[i].transform);
+                    //objectAdded.GetComponent<Image>().sprite = inventoryItem.itemImage;
+                    //objectAdded.transform.GetChild(0).gameObject.GetComponent<Text>().text = inventoryItem.itemName;
+                    //inventoryList.Add(obj);
+
+                    ModularizeAddingToSlots(inventorySlots[i], obj, inventoryItem, loadoutItem);
                     break;
                 }
             }  
@@ -52,14 +58,31 @@ public class UIInventorySubscriber : MonoBehaviour
                 if(loadoutSlots[j].transform.childCount == 0)
                 {
                     //no copy pasting, created a new function with above code to be re-used
-                    GameObject objectAdded = Instantiate(objectPrefab, loadoutSlots[j].transform);
-                    objectAdded.GetComponent<Image>().sprite = loadoutItem.itemImage;
-                    objectAdded.transform.GetChild(0).gameObject.GetComponent<Text>().text = loadoutItem.itemName;
-                    inventoryList.Add(obj);
+                    //GameObject objectAdded = Instantiate(objectPrefab, loadoutSlots[j].transform);
+                    //objectAdded.GetComponent<Image>().sprite = loadoutItem.itemImage;
+                    //objectAdded.transform.GetChild(0).gameObject.GetComponent<Text>().text = loadoutItem.itemName;
+                    //inventoryList.Add(obj);
+
+                    ModularizeAddingToSlots(loadoutSlots[j], obj, inventoryItem, loadoutItem);
                     break;
                 }
             }
         }
+    }
+
+    private void ModularizeAddingToSlots(GameObject slotOBJ, GameObject obj, InventoryItem inventoryItem, LoadoutItem loadoutItem)
+	{
+        var item = (dynamic)null;
+
+        if (inventoryItem != null) item = inventoryItem;
+        if (loadoutItem != null) item = loadoutItem;
+
+        GameObject objectAdded = Instantiate(itemSlotPrefab, slotOBJ.transform);
+
+        objectAdded.GetComponent<Image>().sprite = item.itemImage;
+        objectAdded.transform.GetChild(0).gameObject.GetComponent<Text>().text = item.itemName;
+
+        inventoryList.Add(obj);
     }
 
     private void SetOnOpenInventory()
