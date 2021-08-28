@@ -79,7 +79,8 @@ public class UIInventorySubscriber : MonoBehaviour
 
         GameObject objectAdded = Instantiate(itemSlotPrefab, slotOBJ.transform);
 
-        objectAdded.GetComponent<Image>().sprite = item.itemImage;
+		Sprite itemImage = item.itemImage;
+        objectAdded.GetComponent<Image>().sprite = itemImage;
         objectAdded.transform.GetChild(0).gameObject.GetComponent<Text>().text = item.itemName;
 
         inventoryList.Add(obj);
