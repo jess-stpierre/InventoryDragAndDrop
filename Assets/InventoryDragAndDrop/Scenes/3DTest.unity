@@ -1546,7 +1546,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -1.3000488, y: -209}
+  m_AnchoredPosition: {x: -1.300293, y: -208.99998}
   m_SizeDelta: {x: -1629.3578, y: -965.3441}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &452292563
@@ -1723,7 +1723,7 @@ GameObject:
   - component: {fileID: 534669903}
   m_Layer: 0
   m_Name: Main Camera
-  m_TagString: MainCamera
+  m_TagString: Camera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2992,7 +2992,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 12.199951, y: 1}
+  m_AnchoredPosition: {x: 12.199707, y: 1}
   m_SizeDelta: {x: -330.85217, y: -286.78406}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &962815528
@@ -3691,7 +3691,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -1.3000488, y: 337}
+  m_AnchoredPosition: {x: -1.300293, y: 337}
   m_SizeDelta: {x: -1629.3578, y: -965.3441}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1420424490
@@ -5364,7 +5364,7 @@ PrefabInstance:
     - target: {fileID: 8559131262683592694, guid: 03d059f2264821845b6eeb41addc61d7,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.55
+      value: 2.13
       objectReference: {fileID: 0}
     - target: {fileID: 8559131262683592694, guid: 03d059f2264821845b6eeb41addc61d7,
         type: 3}
@@ -5411,10 +5411,5 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8559131262758660457, guid: 03d059f2264821845b6eeb41addc61d7,
-        type: 3}
-      propertyPath: mainCamera
-      value: 
-      objectReference: {fileID: 534669902}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 03d059f2264821845b6eeb41addc61d7, type: 3}

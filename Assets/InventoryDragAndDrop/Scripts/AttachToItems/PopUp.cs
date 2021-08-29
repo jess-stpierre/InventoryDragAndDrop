@@ -8,7 +8,14 @@ using UnityEngine;
 public class PopUp : MonoBehaviour
 {
 	[SerializeField] private GameObject popup;
-	[SerializeField] private GameObject mainCamera;
+	[SerializeField] private string cameraTag = "Camera";
+
+	private GameObject mainCamera;
+
+	private void Start()
+	{
+		mainCamera = GameObject.FindGameObjectWithTag(cameraTag);
+	}
 
 	private void Update()
 	{
