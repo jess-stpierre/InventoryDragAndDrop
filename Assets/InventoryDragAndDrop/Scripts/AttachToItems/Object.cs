@@ -19,6 +19,9 @@ public class Object : MonoBehaviour
     /// </summary>
     [SerializeField] private UnityEvent showPopup; 
     [SerializeField] private UnityEvent hidePopup;
+
+    public UnityEvent itemUsage;
+
     private bool popupActive = false;
 
     private void Awake()

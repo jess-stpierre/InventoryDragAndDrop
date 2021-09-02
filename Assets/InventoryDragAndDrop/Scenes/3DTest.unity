@@ -2086,6 +2086,7 @@ GameObject:
   - component: {fileID: 599692966}
   - component: {fileID: 599692965}
   - component: {fileID: 599692970}
+  - component: {fileID: 599692971}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Canvas
@@ -2232,6 +2233,24 @@ MonoBehaviour:
   itemSlotPrefab: {fileID: 675855285098848723, guid: 5088ab3080781e84eb1e3b0034ff5a3d,
     type: 3}
   inventoryParent: {fileID: 545069969}
+--- !u!114 &599692971
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 599692964}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 78fa31300850a464a89e23d3182bf375, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  usageHotbar:
+  - {fileID: 796086448}
+  - {fileID: 288234570}
+  - {fileID: 1598881035}
+  - {fileID: 785065256}
+  - {fileID: 1531440912}
 --- !u!1 &603276121
 GameObject:
   m_ObjectHideFlags: 0
