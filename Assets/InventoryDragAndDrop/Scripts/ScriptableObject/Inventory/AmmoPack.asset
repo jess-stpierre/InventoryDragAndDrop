@@ -12,10 +12,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 879c3cc6663835143a33dd3c548f5bf1, type: 3}
   m_Name: AmmoPack
   m_EditorClassIdentifier: 
-  itemName: 
-  itemDescription: 
-  itemImage: {fileID: 0}
+  itemName: Ammo Pack
+  itemDescription: Use this item for more ammo
+  itemImage: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
   itemPrefab: {fileID: 0}
   usage:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 11400000}
+        m_MethodName: UseAmmo
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  totalDurability: 0

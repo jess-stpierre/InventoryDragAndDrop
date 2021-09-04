@@ -5418,7 +5418,7 @@ PrefabInstance:
     - target: {fileID: 8559131262683592683, guid: 03d059f2264821845b6eeb41addc61d7,
         type: 3}
       propertyPath: m_Name
-      value: PickableItem
+      value: ExtraHealth
       objectReference: {fileID: 0}
     - target: {fileID: 8559131262683592694, guid: 03d059f2264821845b6eeb41addc61d7,
         type: 3}
