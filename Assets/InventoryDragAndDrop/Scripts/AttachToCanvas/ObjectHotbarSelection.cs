@@ -8,7 +8,7 @@ using UnityEngine;
 /// <summary>
 /// RENAME SCRIPT TO OBJECTSELECTION INSTEAD
 /// </summary>
-public class ObjectUsages : MonoBehaviour
+public class ObjectHotbarSelection : MonoBehaviour
 {
 	[Header("The order of each element is important and associated with the itemKeys elements")]
 	[SerializeField] private List<GameObject> usageHotbar = new List<GameObject>();
@@ -16,7 +16,8 @@ public class ObjectUsages : MonoBehaviour
 	[Header("The order of each element is important and associated with the usageHotBar elements")]
 	[SerializeField] private List<KeyCode> itemKeys = new List<KeyCode>();
 
-	//1 - 5 hotbar or mouse scrolling to select next
+	private int j = 0;
+
 	private void Start()
 	{
 		cursor.transform.position = usageHotbar[0].transform.position;
@@ -26,14 +27,37 @@ public class ObjectUsages : MonoBehaviour
 	{
 		for (int i = 0; i < usageHotbar.Count; i++)
 		{
+			//hot bar item selection using the quick input keys
 			Selection(i, i);
 		}
+		SelectionUsageMouseScroll();
 	}
 
+	/// <summary>
+	/// hot bar quick item selection using the input keycodes
+	/// </summary>
 	private void Selection(int j, int i)
 	{
 		if (Input.GetKeyDown(itemKeys[j])) cursor.transform.position = usageHotbar[i].transform.position;
 	}
 
+	/// <summary>
+	/// hot bar item selection using the mouse scroll
+	/// </summary>
+	private void SelectionUsageMouseScroll()
+	{
+		if (cursor.transform.position == usageHotbar[j].transform.position)
+		{
+			if (Input.mouseScrollDelta.y > 0f)
+			{
+				if (j < (usageHotbar.Count - 1) && j >= 0) j++;
+			}
+			else if (Input.mouseScrollDelta.y < 0f)
+			{
+				if (j < (usageHotbar.Count) && j > 0) j--;
+			}
+			cursor.transform.position = usageHotbar[j].transform.position;
+		}
+	}
 
 }
