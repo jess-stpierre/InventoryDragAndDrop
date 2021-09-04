@@ -15,7 +15,8 @@ MonoBehaviour:
   itemName: Gun
   itemDescription: Use this weapon to shoot bullets
   itemImage: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
-  itemPrefab: {fileID: 0}
+  itemPrefab: {fileID: 2753409091708065186, guid: 4023a5a2d0713934fa9824540171d21b,
+    type: 3}
   usage:
     m_PersistentCalls:
       m_Calls:

@@ -12,10 +12,15 @@ using UnityEngine;
 public class PlayerEventBroker
 {
     public delegate void GameObjectEvent(GameObject obj);
-    public static event GameObjectEvent OnAttemptPickup;
+    public static event GameObjectEvent OnAttemptPickup, OnSelectedEquippedItem;
 
     public static void TriggerOnAttemptPickup(GameObject obj)
     {
         OnAttemptPickup?.Invoke(obj);
+    }
+
+    public static void TriggerOnSelectedEquippedItem(GameObject obj)
+    {
+        OnSelectedEquippedItem?.Invoke(obj);
     }
 }

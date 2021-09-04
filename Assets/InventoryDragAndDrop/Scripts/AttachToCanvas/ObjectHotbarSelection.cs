@@ -38,7 +38,11 @@ public class ObjectHotbarSelection : MonoBehaviour
 	/// </summary>
 	private void Selection(int j, int i)
 	{
-		if (Input.GetKeyDown(itemKeys[j])) cursor.transform.position = usageHotbar[i].transform.position;
+		if (Input.GetKeyDown(itemKeys[j]))
+		{
+			cursor.transform.position = usageHotbar[i].transform.position;
+			SpawnItemOnPlayerSpot(usageHotbar[i]);
+		}
 	}
 
 	/// <summary>
@@ -50,13 +54,31 @@ public class ObjectHotbarSelection : MonoBehaviour
 		{
 			if (Input.mouseScrollDelta.y > 0f)
 			{
-				if (j < (usageHotbar.Count - 1) && j >= 0) j++;
+				if (j < (usageHotbar.Count - 1) && j >= 0)
+				{
+					j++;
+					SpawnItemOnPlayerSpot(usageHotbar[j]);
+				}
 			}
 			else if (Input.mouseScrollDelta.y < 0f)
 			{
-				if (j < (usageHotbar.Count) && j > 0) j--;
+				if (j < (usageHotbar.Count) && j > 0)
+				{
+					j--;
+					SpawnItemOnPlayerSpot(usageHotbar[j]);
+				}
 			}
 			cursor.transform.position = usageHotbar[j].transform.position;
+			
+		}
+	}
+
+	private void SpawnItemOnPlayerSpot(GameObject equippedSlot)
+	{
+		if(equippedSlot.transform.childCount > 0) //&& if the item in the player slot is either empty or different from equipped item selected
+		{
+			PlayerEventBroker.TriggerOnSelectedEquippedItem(equippedSlot.transform.GetChild(0).gameObject.GetComponent<Object>().inventoryItem.itemPrefab);
+			//Pass the item above to a PlayerEventBroker function to trigger an instantiate of the item passed in a script attached to the player
 		}
 	}
 
