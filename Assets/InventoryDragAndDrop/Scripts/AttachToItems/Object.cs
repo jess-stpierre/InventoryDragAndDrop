@@ -15,6 +15,10 @@ public class Object : MonoBehaviour
     public InventoryItem inventoryItem;
 
     /// <summary>
+    /// For once the item is equipped
+    /// </summary>
+    private int currentDurability;
+    /// <summary>
     /// Unity Events allow you to hook up any public function in a script
     /// </summary>
     [SerializeField] private UnityEvent showPopup; 
@@ -26,18 +30,21 @@ public class Object : MonoBehaviour
     {
         PlayerEventBroker.OnAttemptPickup += SetOnAttemptPickup;
         UIEventBroker.OnCheckPopupStatus += SetOnCheckPopupStatus;
+        currentDurability = inventoryItem.totalDurability;
     }
 
     private void OnDestroy() 
     {
         PlayerEventBroker.OnAttemptPickup -= SetOnAttemptPickup;
         UIEventBroker.OnCheckPopupStatus -= SetOnCheckPopupStatus;
+        currentDurability = 0;
     }
 
     private void OnDisable() 
     {
         PlayerEventBroker.OnAttemptPickup -= SetOnAttemptPickup;
         UIEventBroker.OnCheckPopupStatus -= SetOnCheckPopupStatus;
+        currentDurability = 0;
     }
 
 	private bool SetOnCheckPopupStatus()

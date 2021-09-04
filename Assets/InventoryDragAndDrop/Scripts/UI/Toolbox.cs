@@ -1,4 +1,7 @@
-﻿using System.Collections;
+﻿
+///Permission to distribute belongs to Jess_StPierre on the Unity Asset Store. If you bought this asset, you have permission to use it in your project.
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -22,8 +25,8 @@ public class Toolbox : MonoBehaviour
 
         if (canvas != null)
         {
-            var go3 = canvas;
-            go3.transform.parent = this.gameObject.transform;
+            var go = canvas;
+            go.transform.parent = this.gameObject.transform;
         }
 
         if (canvas == null)
