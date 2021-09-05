@@ -24,7 +24,7 @@ public class PlayerSpawnSelectedItem : MonoBehaviour
 	{
 		if(spawnSpot.transform.childCount > 0) spawnSpot.transform.GetChild(spawnSpot.transform.childCount - 1).gameObject.SetActive(false);
 
-		if (spawnSpot.transform.childCount == 0 || spawnSpot.transform.GetChild(spawnSpot.transform.childCount - 1).GetComponent<Object>().inventoryItem != obj.GetComponent<Object>().inventoryItem)
+		if (obj != null && (spawnSpot.transform.childCount == 0 || spawnSpot.transform.GetChild(spawnSpot.transform.childCount - 1).GetComponent<Object>().inventoryItem != obj.GetComponent<Object>().inventoryItem))
 		{
 			GameObject spawnedOBJ = Instantiate(obj, spawnSpot.transform, false);
 			spawnedOBJ.transform.GetChild(0).gameObject.SetActive(false);

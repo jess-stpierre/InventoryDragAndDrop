@@ -75,11 +75,11 @@ public class ObjectHotbarSelection : MonoBehaviour
 
 	private void SpawnItemOnPlayerSpot(GameObject equippedSlot)
 	{
-		if(equippedSlot.transform.childCount > 0) //&& if the item in the player slot is either empty or different from equipped item selected
-		{
-			PlayerEventBroker.TriggerOnSelectedEquippedItem(equippedSlot.transform.GetChild(0).gameObject.GetComponent<Object>().inventoryItem.itemPrefab);
-			//Pass the item above to a PlayerEventBroker function to trigger an instantiate of the item passed in a script attached to the player
-		}
+		GameObject sendThis = null;
+
+		if (equippedSlot.transform.childCount > 0) sendThis = equippedSlot.transform.GetChild(0).gameObject.GetComponent<Object>().inventoryItem.itemPrefab;
+
+		PlayerEventBroker.TriggerOnSelectedEquippedItem(sendThis);
 	}
 
 }
