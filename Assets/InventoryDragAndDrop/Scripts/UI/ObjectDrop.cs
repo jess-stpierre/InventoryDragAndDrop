@@ -15,11 +15,11 @@ public class ObjectDrop : MonoBehaviour, IDropHandler
     {
        // RectTransform eventRect = eventData.pointerDrag.GetComponent<RectTransform>();
 
-        if(eventData.pointerDrag != null && this.gameObject.transform.childCount == 0 && this.gameObject.CompareTag("Slot"))
+        if(eventData.pointerDrag != null && this.gameObject.transform.childCount == 0 && (this.gameObject.CompareTag("Slot") || this.gameObject.CompareTag("Equipped")))
         {
             SetParentAndPosition(eventData);
         }
-        else if(eventData.pointerDrag != null && this.gameObject.transform.childCount != 0 && this.gameObject.CompareTag("Slot"))
+        else if(eventData.pointerDrag != null && this.gameObject.transform.childCount != 0 && (this.gameObject.CompareTag("Slot") || this.gameObject.CompareTag("Equipped")))
         {
             if(slots.Count > 0)
             {
@@ -59,6 +59,9 @@ public class ObjectDrop : MonoBehaviour, IDropHandler
                         obj.transform.SetParent(slot.transform, false);
                         obj.GetComponent<RectTransform>().anchoredPosition = slot.GetComponent<RectTransform>().anchoredPosition;
                         obj.transform.position = slot.transform.position;
+
+                        EquippedSlot();
+
                         counter++;
                     }
                 }
@@ -73,5 +76,15 @@ public class ObjectDrop : MonoBehaviour, IDropHandler
         obj.transform.SetParent(this.transform, false);
         obj.GetComponent<RectTransform>().anchoredPosition = GetComponent<RectTransform>().anchoredPosition;
         obj.transform.position = this.transform.position;
+
+        EquippedSlot();
     }
+
+    private void EquippedSlot()
+	{
+		if (this.gameObject.CompareTag("Equipped"))
+		{
+            UIEventBroker.TriggerOnDraggedItemToSelectedSlot();
+        }
+	}
 }

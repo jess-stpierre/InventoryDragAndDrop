@@ -18,6 +18,16 @@ public class ObjectHotbarSelection : MonoBehaviour
 
 	private int j = 0;
 
+	private void Awake()
+	{
+		UIEventBroker.OnDraggedItemToSelectedSlot += SetOnDraggedItemToSelectedSlot;
+	}
+
+	private void OnDestroy()
+	{
+		UIEventBroker.OnDraggedItemToSelectedSlot -= SetOnDraggedItemToSelectedSlot;
+	}
+
 	private void Start()
 	{
 		cursor.transform.position = usageHotbar[0].transform.position;
@@ -31,6 +41,7 @@ public class ObjectHotbarSelection : MonoBehaviour
 			Selection(i, i);
 		}
 		SelectionUsageMouseScroll();
+		//DraggedItemToSelectedSlot();
 	}
 
 	/// <summary>
@@ -80,6 +91,18 @@ public class ObjectHotbarSelection : MonoBehaviour
 		if (equippedSlot.transform.childCount > 0) sendThis = equippedSlot.transform.GetChild(0).gameObject.GetComponent<Object>().inventoryItem.itemPrefab;
 
 		PlayerEventBroker.TriggerOnSelectedEquippedItem(sendThis);
+	}
+
+	private void SetOnDraggedItemToSelectedSlot()
+	{
+		for (int i = 0; i < usageHotbar.Count; i++)
+		{
+			if(cursor.transform.position == usageHotbar[i].transform.position)
+			{
+				SpawnItemOnPlayerSpot(usageHotbar[i]);
+				break;
+			}
+		}
 	}
 
 }

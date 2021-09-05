@@ -16,7 +16,7 @@ public class UIEventBroker
 	public delegate void GameObjectEvent(GameObject obj, InventoryItem inventoryItem);
 	public static event GameObjectEvent OnAddToSlots;
 	public delegate void VoidEvent();
-	public static event VoidEvent OnOpenInventory, OnCloseInventory;
+	public static event VoidEvent OnOpenInventory, OnCloseInventory, OnDraggedItemToSelectedSlot;
 
 	public static bool TriggerOnCheckPopupStatus()
 	{
@@ -41,5 +41,10 @@ public class UIEventBroker
 	public static bool TriggerOnCheckInventoryStatus()
 	{
 		return OnCheckInventoryStatus.Invoke();
+	}
+
+	public static void TriggerOnDraggedItemToSelectedSlot()
+	{
+		OnDraggedItemToSelectedSlot?.Invoke();
 	}
 }

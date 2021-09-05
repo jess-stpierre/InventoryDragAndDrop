@@ -22,13 +22,19 @@ public class PlayerSpawnSelectedItem : MonoBehaviour
 
 	private void SetOnSelectedEquippedItem(GameObject obj)
 	{
-		if(spawnSpot.transform.childCount > 0) spawnSpot.transform.GetChild(spawnSpot.transform.childCount - 1).gameObject.SetActive(false);
+		if(spawnSpot.transform.childCount > 0 && spawnSpot.transform.GetChild(spawnSpot.transform.childCount - 1).gameObject.activeInHierarchy) spawnSpot.transform.GetChild(spawnSpot.transform.childCount - 1).gameObject.SetActive(false);
 
-		if (obj != null && (spawnSpot.transform.childCount == 0 || spawnSpot.transform.GetChild(spawnSpot.transform.childCount - 1).GetComponent<Object>().inventoryItem != obj.GetComponent<Object>().inventoryItem))
+		if (obj == null) return;
+
+		if (spawnSpot.transform.childCount == 0 || (spawnSpot.transform.childCount > 0 && spawnSpot.transform.GetChild(spawnSpot.transform.childCount - 1).gameObject.activeInHierarchy == false) || (obj != null && spawnSpot.transform.GetChild(spawnSpot.transform.childCount - 1).GetComponent<Object>().inventoryItem != obj.GetComponent<Object>().inventoryItem))
 		{
 			GameObject spawnedOBJ = Instantiate(obj, spawnSpot.transform, false);
 			spawnedOBJ.transform.GetChild(0).gameObject.SetActive(false);
-			if (spawnedOBJ.GetComponent<Collider>().isTrigger == true) spawnedOBJ.GetComponent<Collider>().enabled = false;
+
+			foreach(Collider coll in spawnedOBJ.GetComponents<Collider>())
+			{
+				if (coll.isTrigger == true) spawnedOBJ.GetComponent<Collider>().enabled = false;
+			}
 		}
 	}
 
