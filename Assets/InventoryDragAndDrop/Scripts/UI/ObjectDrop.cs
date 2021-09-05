@@ -13,8 +13,6 @@ public class ObjectDrop : MonoBehaviour, IDropHandler
 
     public void OnDrop(PointerEventData eventData)
     {
-       // RectTransform eventRect = eventData.pointerDrag.GetComponent<RectTransform>();
-
         if(eventData.pointerDrag != null && this.gameObject.transform.childCount == 0 && (this.gameObject.CompareTag("Slot") || this.gameObject.CompareTag("Equipped")))
         {
             SetParentAndPosition(eventData);

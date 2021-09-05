@@ -39,11 +39,6 @@ public class UIInventorySubscriber : MonoBehaviour
             {
                 if(inventorySlots[i].transform.childCount == 0)
                 {
-                    //no copy pasting, created a new function with above code to be re-used
-                   //// GameObject objectAdded = Instantiate(itemSlotPrefab, inventorySlots[i].transform);
-                   // objectAdded.GetComponent<Image>().sprite = inventoryItem.itemImage;
-                   // objectAdded.transform.GetChild(0).gameObject.GetComponent<Text>().text = inventoryItem.itemName;
-
                     ModularizeAddingToSlots(inventorySlots[i], obj, inventoryItem);
                     break;
                 }
@@ -53,13 +48,13 @@ public class UIInventorySubscriber : MonoBehaviour
 
     private void ModularizeAddingToSlots(GameObject slotOBJ, GameObject obj, InventoryItem inventoryItem)
 	{
+        //check to see if we have this exact item in the deletedItems parent object, if so, make sure to reset the durability to the limit/ max
         GameObject objectAdded = Instantiate(itemSlotPrefab, slotOBJ.transform);
         objectAdded.GetComponent<Object>().inventoryItem = inventoryItem;
 
 		Sprite itemImage = inventoryItem.itemImage;
         objectAdded.GetComponent<Image>().sprite = itemImage;
         objectAdded.transform.GetChild(0).gameObject.GetComponent<Text>().text = inventoryItem.itemName;
-
     }
 
     private void SetOnOpenInventory()

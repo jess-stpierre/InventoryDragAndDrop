@@ -40,9 +40,11 @@ public class PlayerItemUsage : MonoBehaviour
 			{
 				//remove from equippables
 				UIEventBroker.TriggerOnRemoveItem(selectedInventoryItem);
+
 				//remove from hand 
 				selectedOBJ.SetActive(false);
 
+				//make these null or else well keep on using the item that we deleted
 				selectedOBJ = null;
 				selectedInventoryItem = null;
 			}
