@@ -20,6 +20,7 @@ public class InventoryItem : ScriptableObject
     public void Hit()
 	{
 		Debug.Log("The player has used this item to hit");
+		//Trigger event function here
 	}
 
 	/// <summary>
@@ -28,6 +29,7 @@ public class InventoryItem : ScriptableObject
 	public void Shoot()
 	{
 		Debug.Log("The player has used this item to shoot");
+		//Trigger event function here
 	}
 
 	/// <summary>
@@ -36,6 +38,7 @@ public class InventoryItem : ScriptableObject
 	public void Light()
 	{
 		Debug.Log("The player has used this item to light");
+		//Trigger event function here
 	}
 
 	/// <summary>
@@ -44,6 +47,7 @@ public class InventoryItem : ScriptableObject
 	public void Heal()
 	{
 		Debug.Log("The player has used this item to heal");
+		//Trigger event function here
 	}
 
 	/// <summary>
@@ -52,6 +56,7 @@ public class InventoryItem : ScriptableObject
 	public void UseMana()
 	{
 		Debug.Log("The player has used this item to use mana");
+		//Trigger event function here
 	}
 
 	/// <summary>
@@ -60,5 +65,6 @@ public class InventoryItem : ScriptableObject
 	public void UseAmmo()
 	{
 		Debug.Log("The player has used this item to use ammo");
+		//Trigger event function here
 	}
 }
