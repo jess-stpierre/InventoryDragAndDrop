@@ -13,6 +13,16 @@ public class InventoryItem : ScriptableObject
     public GameObject itemPrefab;
     public UnityEvent usage;
 	public int totalDurability;
+	public enum ItemType
+	{
+		Hit,
+		Shoot,
+		Light,
+		Heal,
+		Mana,
+		Ammo
+	}
+	public ItemType currentItemType;
 
 	/// <summary>
 	/// Feel free to edit this function as much as needed, we temporarily implemented it

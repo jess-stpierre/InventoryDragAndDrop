@@ -13,6 +13,8 @@ public class PlayerEventBroker
 {
     public delegate void GameObjectEvent(GameObject obj);
     public static event GameObjectEvent OnAttemptPickup, OnSelectedEquippedItem;
+    public delegate void GameObjectInventoryEvent(GameObject obj, InventoryItem inventoryItem);
+    public static event GameObjectInventoryEvent OnSelectedInventoryItem;
 
     public static void TriggerOnAttemptPickup(GameObject obj)
     {
@@ -22,5 +24,10 @@ public class PlayerEventBroker
     public static void TriggerOnSelectedEquippedItem(GameObject obj)
     {
         OnSelectedEquippedItem?.Invoke(obj);
+    }
+
+    public static void TriggerOnSelectedInventoryItem(GameObject obj, InventoryItem inventoryItem)
+    {
+        OnSelectedInventoryItem?.Invoke(obj, inventoryItem);
     }
 }

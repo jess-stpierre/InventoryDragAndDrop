@@ -17,7 +17,7 @@ public class Object : MonoBehaviour
     /// <summary>
     /// For once the item is equipped
     /// </summary>
-    private int currentDurability;
+    [HideInInspector] public int currentDurability;
     /// <summary>
     /// Unity Events allow you to hook up any public function in a script
     /// </summary>

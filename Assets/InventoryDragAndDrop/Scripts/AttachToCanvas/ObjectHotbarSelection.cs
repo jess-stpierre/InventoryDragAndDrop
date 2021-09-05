@@ -15,17 +15,20 @@ public class ObjectHotbarSelection : MonoBehaviour
 	[SerializeField] private GameObject cursor;
 	[Header("The order of each element is important and associated with the usageHotBar elements")]
 	[SerializeField] private List<KeyCode> itemKeys = new List<KeyCode>();
+	[SerializeField] private GameObject deleteItems;
 
 	private int j = 0;
 
 	private void Awake()
 	{
 		UIEventBroker.OnDraggedItemToSelectedSlot += SetOnDraggedItemToSelectedSlot;
+		UIEventBroker.OnRemoveItem += SetOnRemoveItem;
 	}
 
 	private void OnDestroy()
 	{
 		UIEventBroker.OnDraggedItemToSelectedSlot -= SetOnDraggedItemToSelectedSlot;
+		UIEventBroker.OnRemoveItem -= SetOnRemoveItem;
 	}
 
 	private void Start()
@@ -100,6 +103,19 @@ public class ObjectHotbarSelection : MonoBehaviour
 			if(cursor.transform.position == usageHotbar[i].transform.position)
 			{
 				SpawnItemOnPlayerSpot(usageHotbar[i]);
+				break;
+			}
+		}
+	}
+
+	private void SetOnRemoveItem(InventoryItem item)
+	{
+		for (int i = 0; i < usageHotbar.Count; i++)
+		{
+			if(usageHotbar[i].transform.childCount > 0 && usageHotbar[i].transform.GetChild(0).gameObject.GetComponent<Object>().inventoryItem == item)
+			{
+				usageHotbar[i].transform.GetChild(0).gameObject.SetActive(false);
+				usageHotbar[i].transform.GetChild(0).gameObject.transform.SetParent(deleteItems.transform);
 				break;
 			}
 		}
