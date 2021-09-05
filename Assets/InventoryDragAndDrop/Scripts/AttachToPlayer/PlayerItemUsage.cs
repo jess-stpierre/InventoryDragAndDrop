@@ -42,6 +42,9 @@ public class PlayerItemUsage : MonoBehaviour
 				UIEventBroker.TriggerOnRemoveItem(selectedInventoryItem);
 				//remove from hand 
 				selectedOBJ.SetActive(false);
+
+				selectedOBJ = null;
+				selectedInventoryItem = null;
 			}
 		}
 	}

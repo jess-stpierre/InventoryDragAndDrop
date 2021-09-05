@@ -87,6 +87,10 @@ public class ObjectHotbarSelection : MonoBehaviour
 		}
 	}
 
+
+	/// <summary>
+	/// Triggers event on player for the item to spawn
+	/// </summary>
 	private void SpawnItemOnPlayerSpot(GameObject equippedSlot)
 	{
 		GameObject sendThis = null;
@@ -96,6 +100,9 @@ public class ObjectHotbarSelection : MonoBehaviour
 		PlayerEventBroker.TriggerOnSelectedEquippedItem(sendThis);
 	}
 
+	/// <summary>
+	/// If the selected slot is initially empty and we drag an item in it, than we want it to spawn on the player as well...
+	/// </summary>
 	private void SetOnDraggedItemToSelectedSlot()
 	{
 		for (int i = 0; i < usageHotbar.Count; i++)
@@ -108,6 +115,10 @@ public class ObjectHotbarSelection : MonoBehaviour
 		}
 	}
 
+
+	/// <summary>
+	/// If item has ran out of durability than we want to remove it from the equippables bar and inventory....
+	/// </summary>
 	private void SetOnRemoveItem(InventoryItem item)
 	{
 		for (int i = 0; i < usageHotbar.Count; i++)

@@ -30,10 +30,14 @@ public class Object : MonoBehaviour
     {
         PlayerEventBroker.OnAttemptPickup += SetOnAttemptPickup;
         UIEventBroker.OnCheckPopupStatus += SetOnCheckPopupStatus;
+    }
+
+	private void OnEnable()
+	{
         currentDurability = inventoryItem.totalDurability;
     }
 
-    private void OnDestroy() 
+	private void OnDestroy() 
     {
         PlayerEventBroker.OnAttemptPickup -= SetOnAttemptPickup;
         UIEventBroker.OnCheckPopupStatus -= SetOnCheckPopupStatus;

@@ -32,3 +32,4 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
   totalDurability: 1
+  currentItemType: 4
