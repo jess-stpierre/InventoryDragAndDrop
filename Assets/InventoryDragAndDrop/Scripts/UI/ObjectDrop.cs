@@ -46,12 +46,12 @@ public class ObjectDrop : MonoBehaviour, IDropHandler
         {
             if(slots.Count > 0)
             {
-                int counter = 0;
+                //int counter = 0;
 
                 foreach (GameObject slot in slots)
                 {
-                    if(slot.transform.childCount == 0 && counter == 0)
-                    {
+                    if (eventData.pointerDrag.transform.parent.gameObject == slot)
+					{
                         GameObject obj = eventData.pointerDrag;
 
                         obj.transform.SetParent(slot.transform, false);
@@ -59,9 +59,19 @@ public class ObjectDrop : MonoBehaviour, IDropHandler
                         obj.transform.position = slot.transform.position;
 
                         EquippedSlot();
-
-                        counter++;
                     }
+                    //else if (slot.transform.childCount == 0 && counter == 0)
+                    //{
+                    //    GameObject obj = eventData.pointerDrag;
+
+                    //    obj.transform.SetParent(slot.transform, false);
+                    //    obj.GetComponent<RectTransform>().anchoredPosition = slot.GetComponent<RectTransform>().anchoredPosition;
+                    //    obj.transform.position = slot.transform.position;
+
+                    //    EquippedSlot();
+
+                    //    counter++;
+                    //}
                 }
             }
         } 
