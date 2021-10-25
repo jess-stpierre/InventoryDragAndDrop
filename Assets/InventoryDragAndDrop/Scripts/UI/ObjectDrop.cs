@@ -81,4 +81,13 @@ public class ObjectDrop : MonoBehaviour, IDropHandler
             UIEventBroker.TriggerOnDraggedItemToSelectedSlot();
         }
 	}
+
+    public void AttemptHotbarDrop(GameObject obj)
+	{
+        obj.transform.SetParent(this.transform, false);
+        obj.GetComponent<RectTransform>().anchoredPosition = GetComponent<RectTransform>().anchoredPosition;
+        obj.transform.position = this.transform.position;
+
+        EquippedSlot();
+    }
 }
