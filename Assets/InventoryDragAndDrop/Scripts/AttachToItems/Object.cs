@@ -29,6 +29,7 @@ public class Object : MonoBehaviour
     private void Awake()
     {
         PlayerEventBroker.OnAttemptPickup += SetOnAttemptPickup;
+        PlayerEventBroker.OnDropItem += SetOnDropItem;
         UIEventBroker.OnCheckPopupStatus += SetOnCheckPopupStatus;
     }
 
@@ -40,6 +41,7 @@ public class Object : MonoBehaviour
 	private void OnDestroy() 
     {
         PlayerEventBroker.OnAttemptPickup -= SetOnAttemptPickup;
+        PlayerEventBroker.OnDropItem -= SetOnDropItem;
         UIEventBroker.OnCheckPopupStatus -= SetOnCheckPopupStatus;
         currentDurability = 0;
     }
@@ -47,8 +49,28 @@ public class Object : MonoBehaviour
     private void OnDisable() 
     {
         PlayerEventBroker.OnAttemptPickup -= SetOnAttemptPickup;
+        PlayerEventBroker.OnDropItem -= SetOnDropItem;
         UIEventBroker.OnCheckPopupStatus -= SetOnCheckPopupStatus;
         currentDurability = 0;
+    }
+
+	private void SetOnDropItem(GameObject obj) //use interfance instead!
+	{
+       // if (this.gameObject.transform.parent == GameObject.FindGameObjectWithTag("Player").transform)
+      //  {
+            obj.transform.parent = null;
+            obj.AddComponent<Rigidbody>();
+            obj.GetComponent<Rigidbody>().useGravity = true;
+            UIEventBroker.TriggerOnRemoveItem(inventoryItem);
+            
+        if (obj == this.gameObject)
+        {
+            Debug.Log("we get here?");
+            showPopup.Invoke();
+        }
+      //  }
+
+        Debug.Log(obj.name + " , Object");
     }
 
 	private bool SetOnCheckPopupStatus()
