@@ -12,19 +12,10 @@ using UnityEngine;
 public class PlayerEventBroker
 {
     public delegate void GameObjectEvent(GameObject obj);
-    public static event GameObjectEvent OnAttemptPickup, OnSelectedEquippedItem, OnDropItem;
+    public static event GameObjectEvent OnSelectedEquippedItem;//, OnDropItem;
     public delegate void GameObjectInventoryEvent(GameObject obj, InventoryItem inventoryItem);
     public static event GameObjectInventoryEvent OnSelectedInventoryItem;
 
-    public static void TriggerOnAttemptPickup(GameObject obj)
-    {
-        OnAttemptPickup?.Invoke(obj);
-    }
-    
-    public static void TriggerOnDropItem(GameObject obj)
-    {
-        OnDropItem?.Invoke(obj);
-    }
 
     public static void TriggerOnSelectedEquippedItem(GameObject obj)
     {

@@ -14,6 +14,7 @@ public class PlayerInventory : MonoBehaviour
 	[SerializeField] KeyCode interactKey = KeyCode.E;
     [Header(" ")]
     [SerializeField] private bool havePressInteractPopUp = true;
+
 	private GameObject interactedOBJ;
 
     void Update()
@@ -27,14 +28,14 @@ public class PlayerInventory : MonoBehaviour
         {
             if (Input.GetKeyDown(interactKey))
             {
-                PlayerEventBroker.TriggerOnAttemptPickup(interactedOBJ); //send to all objects with the "Object" script attached that we want to pickup the object in the input
+                interactedOBJ.GetComponent<Object>().AttemptPickup();
             }
         }
         else if (havePressInteractPopUp == false)
         {
             if (Input.GetKeyDown(interactKey))
             {
-                PlayerEventBroker.TriggerOnAttemptPickup(interactedOBJ); //send to all objects with the "Object" script attached that we want to pickup the object in the input
+                interactedOBJ.GetComponent<Object>().AttemptPickup();
             }
         }
     }

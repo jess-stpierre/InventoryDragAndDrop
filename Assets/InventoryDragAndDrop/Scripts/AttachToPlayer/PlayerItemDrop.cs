@@ -32,12 +32,7 @@ public class PlayerItemDrop : MonoBehaviour
 	{
 		if (UIEventBroker.TriggerOnCheckInventoryStatus() == false && Input.GetMouseButtonDown(mouseButton) && selectedOBJ != null && selectedInventoryItem != null)
 		{
-			//Code to drop item in Object.cs
-			PlayerEventBroker.TriggerOnDropItem(selectedOBJ);
-
-			Debug.Log(selectedOBJ.name);
-
-			//code to remove from inventory
+			selectedOBJ.GetComponent<Object>().DropItem();
 		}
 	}
 }

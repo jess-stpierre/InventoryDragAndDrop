@@ -6373,6 +6373,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  triggerCollider: {fileID: 4143921932835657259}
 --- !u!114 &3228327014566382819
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6415,6 +6416,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  triggerCollider: {fileID: 6892721808915341974}
 --- !u!136 &3245564180145602990
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -6658,6 +6660,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  triggerCollider: {fileID: 3317046270304091925}
 --- !u!1 &3317046270304091915
 GameObject:
   m_ObjectHideFlags: 0
@@ -6792,6 +6795,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  triggerCollider: {fileID: 5628618706529064848}
 --- !u!4 &4697940414462999024
 Transform:
   m_ObjectHideFlags: 0
@@ -7661,6 +7665,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  triggerCollider: {fileID: 1567511412246715002}
 --- !u!33 &7104679528934150432
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -7961,6 +7966,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  triggerCollider: {fileID: 3245564180145602990}
 --- !u!1001 &8559131263993556807
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8042,8 +8048,8 @@ GameObject:
   - component: {fileID: 6278495338075041115}
   - component: {fileID: 7490256820222082311}
   - component: {fileID: 6982246913146530112}
-  - component: {fileID: 3245564180145602990}
   - component: {fileID: 8486698944401159688}
+  - component: {fileID: 3245564180145602990}
   m_Layer: 0
   m_Name: BaseballBat
   m_TagString: Untagged

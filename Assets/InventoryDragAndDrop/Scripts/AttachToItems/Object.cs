@@ -26,51 +26,43 @@ public class Object : MonoBehaviour
 
     private bool popupActive = false;
 
+    [SerializeField] private Collider triggerCollider;
+
     private void Awake()
     {
-        PlayerEventBroker.OnAttemptPickup += SetOnAttemptPickup;
-        PlayerEventBroker.OnDropItem += SetOnDropItem;
         UIEventBroker.OnCheckPopupStatus += SetOnCheckPopupStatus;
     }
 
 	private void OnEnable()
 	{
-        currentDurability = inventoryItem.totalDurability;
+        if(inventoryItem != null) currentDurability = inventoryItem.totalDurability;
     }
 
 	private void OnDestroy() 
     {
-        PlayerEventBroker.OnAttemptPickup -= SetOnAttemptPickup;
-        PlayerEventBroker.OnDropItem -= SetOnDropItem;
         UIEventBroker.OnCheckPopupStatus -= SetOnCheckPopupStatus;
         currentDurability = 0;
     }
 
     private void OnDisable() 
     {
-        PlayerEventBroker.OnAttemptPickup -= SetOnAttemptPickup;
-        PlayerEventBroker.OnDropItem -= SetOnDropItem;
         UIEventBroker.OnCheckPopupStatus -= SetOnCheckPopupStatus;
         currentDurability = 0;
     }
 
-	private void SetOnDropItem(GameObject obj) //use interfance instead!
+	public void DropItem()
 	{
-       // if (this.gameObject.transform.parent == GameObject.FindGameObjectWithTag("Player").transform)
-      //  {
-            obj.transform.parent = null;
-            obj.AddComponent<Rigidbody>();
-            obj.GetComponent<Rigidbody>().useGravity = true;
-            UIEventBroker.TriggerOnRemoveItem(inventoryItem);
-            
-        if (obj == this.gameObject)
-        {
-            Debug.Log("we get here?");
-            showPopup.Invoke();
-        }
-      //  }
+        GameObject newInHandOBJ = Instantiate(this.gameObject, this.transform.parent);
+        newInHandOBJ.SetActive(false);
 
-        Debug.Log(obj.name + " , Object");
+        this.transform.parent = null;
+        this.gameObject.AddComponent<Rigidbody>();
+        this.gameObject.GetComponent<Rigidbody>().useGravity = true;
+        UIEventBroker.TriggerOnRemoveItem(inventoryItem);
+        this.gameObject.transform.GetChild(0).gameObject.SetActive(true);
+        showPopup.Invoke();
+        popupActive = true;
+        triggerCollider.enabled = true;
     }
 
 	private bool SetOnCheckPopupStatus()
@@ -100,13 +92,10 @@ public class Object : MonoBehaviour
     /// <summary>
     /// For when player attempts to pickup the object it interacted with
     /// </summary>
-    private void SetOnAttemptPickup(GameObject obj)
+    public void AttemptPickup()
     {
-        if(obj == this.gameObject)
-        {
-            UIEventBroker.TriggerOnAddToSlots(this.gameObject, inventoryItem);
-            this.gameObject.SetActive(false);
-            hidePopup.Invoke();
-        }
+        UIEventBroker.TriggerOnAddToSlots(this.gameObject, inventoryItem);
+        this.gameObject.SetActive(false);
+        hidePopup.Invoke();
     }
 }
