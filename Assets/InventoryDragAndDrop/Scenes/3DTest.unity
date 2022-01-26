@@ -1416,7 +1416,7 @@ GameObject:
   - component: {fileID: 378850506}
   - component: {fileID: 378850505}
   - component: {fileID: 378850507}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: InventorySlot (1)
   m_TagString: Slot
   m_Icon: {fileID: 0}
@@ -1540,7 +1540,7 @@ GameObject:
   - component: {fileID: 385101311}
   - component: {fileID: 385101310}
   - component: {fileID: 385101312}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: InventorySlot
   m_TagString: Slot
   m_Icon: {fileID: 0}

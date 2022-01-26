@@ -7,13 +7,14 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using System.Linq;
 
-public class ObjectDrag : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHandler  
+public class ObjectDrag : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHandler , IPointerEnterHandler, IPointerExitHandler
 {
     private RectTransform rectTransform;
     private CanvasGroup canvasGroup;
     private Canvas actualCanvas;
     [Header("Default is left-control, changeable below")]
     [SerializeField] private KeyCode control = KeyCode.LeftControl;
+    [SerializeField] private GameObject descriptionBox;
 
     private GameObject[] hotbar;
 
@@ -52,4 +53,15 @@ public class ObjectDrag : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDr
         canvasGroup.blocksRaycasts = true;
     }
 
+	public void OnPointerEnter(PointerEventData eventData)
+	{
+        Debug.Log("Mouse is over the item");
+        descriptionBox.SetActive(true);
+    }
+
+	public void OnPointerExit(PointerEventData eventData)
+	{
+        Debug.Log("Mouse has stopped being over item");
+        descriptionBox.SetActive(false);
+    }
 }
