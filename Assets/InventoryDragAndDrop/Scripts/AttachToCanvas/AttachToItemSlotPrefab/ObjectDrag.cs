@@ -55,13 +55,11 @@ public class ObjectDrag : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDr
 
 	public void OnPointerEnter(PointerEventData eventData)
 	{
-        Debug.Log("Mouse is over the item");
         descriptionBox.SetActive(true);
     }
 
 	public void OnPointerExit(PointerEventData eventData)
 	{
-        Debug.Log("Mouse has stopped being over item");
         descriptionBox.SetActive(false);
     }
 }
