@@ -32,7 +32,8 @@ public class PlayerMovement : MonoBehaviour
     {
         float zDirection = DirectionOutput(forwards, backwards);
         float xDirection = DirectionOutput(right, left);
-        Vector3 newDir = new Vector3(xDirection, 0f, zDirection);
+        Vector3 newDir = transform.right * xDirection + transform.forward * zDirection;
+        //Vector3 newDir = new Vector3(xDirection, 0f, zDirection);
         Move(newDir.normalized);
     }
 
@@ -41,8 +42,19 @@ public class PlayerMovement : MonoBehaviour
     /// </summary>
     private void Move(Vector3 direction)
     {
-        Vector3 move = direction * speed * Time.deltaTime;
-        rb.MovePosition(this.transform.position + move);
+        Vector3 move = direction * speed;// * Time.deltaTime;
+        //rb.MovePosition(this.transform.position + move);
+        rb.AddForce((move), ForceMode.Impulse);
+
+        if(move == Vector3.zero)
+		{
+            rb.constraints = RigidbodyConstraints.FreezeAll;
+        }
+        else
+		{
+            rb.constraints = RigidbodyConstraints.None;
+            rb.constraints = RigidbodyConstraints.FreezeRotation;
+        }
     }
 
     /// <summary>

@@ -35,7 +35,7 @@ public class PlayerSpawnSelectedItem : MonoBehaviour
 			}
 		}
 
-		if (activeChild == null || (obj != null && activeChild != null && obj.GetComponent<Object>().inventoryItem != activeChild.GetComponent<Object>().inventoryItem)) //if the activeChild SO is not the same as the obj SO
+		if (activeChild == null || (obj != null && activeChild != null))
 		{
 			for (int j = 0; j < spawnSpot.transform.childCount; j++)
 			{
@@ -49,9 +49,9 @@ public class PlayerSpawnSelectedItem : MonoBehaviour
 
 			}
 		}
-		if (activeChild != null) activeChild.SetActive(false);
+		if (activeChild != null && activeChild != newChild) activeChild.SetActive(false);
 
-		PlayerEventBroker.TriggerOnSelectedInventoryItem(newChild, newInventoryItem);
+		if(newChild != null && newInventoryItem != null) PlayerEventBroker.TriggerOnSelectedInventoryItem(newChild, newInventoryItem);
 	}
 
 

@@ -10,7 +10,7 @@ public class OpenCloseInventory : MonoBehaviour
     [Header("Default button for inventory is Q, changeable below")]
     [SerializeField] KeyCode inventoryKey = KeyCode.Q;
 
-    void Update()
+	void Update()
     {
         OpenOrCloseInventory();
     }

@@ -34,4 +34,9 @@ public class Toolbox : MonoBehaviour
             canvas = GameObject.FindGameObjectWithTag("Canvas");
         }
     }
+
+    private void Start()
+    {
+        Cursor.lockState = CursorLockMode.Confined;
+    }
 }
