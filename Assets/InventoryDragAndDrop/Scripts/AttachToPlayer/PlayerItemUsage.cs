@@ -32,7 +32,7 @@ public class PlayerItemUsage : MonoBehaviour
 
 	private void Update()
 	{
-		if (Input.GetMouseButtonDown(mouseButton) && selectedOBJ != null && selectedInventoryItem != null) // && UIEventBroker.TriggerOnCheckInventoryStatus() == false)
+		if (UIEventBroker.TriggerOnCheckInventoryStatus() == false && Input.GetMouseButtonDown(mouseButton) && selectedOBJ != null && selectedInventoryItem != null) // && UIEventBroker.TriggerOnCheckInventoryStatus() == false)
 		{
 			selectedOBJ.GetComponent<Object>().currentDurability = selectedOBJ.GetComponent<Object>().currentDurability - 1;
 

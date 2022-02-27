@@ -19,7 +19,7 @@ public class PlayerInventory : MonoBehaviour
 
     void Update()
     {
-        PickupOBJ();
+        if(UIEventBroker.TriggerOnCheckInventoryStatus() == false) PickupOBJ();
     }
 
     private void PickupOBJ()
@@ -28,10 +28,10 @@ public class PlayerInventory : MonoBehaviour
         {
             if (Input.GetKeyDown(interactKey))
             {
-                interactedOBJ.GetComponent<Object>().AttemptPickup();
+                if(interactedOBJ != null) interactedOBJ.GetComponent<Object>().AttemptPickup();
             }
         }
-        else if (havePressInteractPopUp == false)
+        else if (havePressInteractPopUp == false && interactedOBJ != null)
         {
             if (Input.GetKeyDown(interactKey))
             {
