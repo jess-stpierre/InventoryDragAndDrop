@@ -20,7 +20,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] KeyCode right = KeyCode.D;
     [SerializeField] KeyCode left = KeyCode.A;
 
-    private void Update()
+    private void FixedUpdate()
     {
         if(UIEventBroker.TriggerOnCheckInventoryStatus() == false) Movement();
     }

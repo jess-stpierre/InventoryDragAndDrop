@@ -15,8 +15,11 @@ public class ObjectDrag : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDr
     [Header("Default is left-control, changeable below")]
     [SerializeField] private KeyCode control = KeyCode.LeftControl;
     [SerializeField] private GameObject descriptionBox;
+    [SerializeField] private Text textBox;
 
     private GameObject[] hotbar;
+
+    private string text;
 
     private void Awake()
     {
@@ -56,6 +59,14 @@ public class ObjectDrag : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDr
 	public void OnPointerEnter(PointerEventData eventData)
 	{
         descriptionBox.SetActive(true);
+        if(GetComponent<Object>().inventoryItem != null)
+		{
+            text ="Description: " + GetComponent<Object>().inventoryItem.itemDescription + " \n";
+            text += "Durability left: " + GetComponent<Object>().inventoryItem.totalDurability.ToString() + " \n";
+            text += "Type: " + GetComponent<Object>().inventoryItem.currentItemType.ToString() + " \n";
+
+            textBox.text = text;
+        }
     }
 
 	public void OnPointerExit(PointerEventData eventData)
