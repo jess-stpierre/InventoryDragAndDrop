@@ -38,7 +38,6 @@ public class PlayerItemUsage : MonoBehaviour
 
 			selectedInventoryItem.usage.Invoke();
 
-			//TODO: Put this in another action and call it only when the usage is done... TRIGGER EVENT??!!
 			if(selectedOBJ.GetComponent<Object>().currentDurability <= 0)
 			{
 				//remove from equippables
