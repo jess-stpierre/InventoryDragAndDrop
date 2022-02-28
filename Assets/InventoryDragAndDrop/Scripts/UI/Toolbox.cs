@@ -1,8 +1,6 @@
 ﻿
 ///Permission to distribute belongs to Jess_StPierre on the Unity Asset Store. If you bought this asset, you have permission to use it in your project.
 
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
@@ -14,6 +12,9 @@ public class Toolbox : MonoBehaviour
 
     public GameObject canvas;
 
+    /// <summary>
+    /// Singleton things
+    /// </summary>
     void Awake()
     {
         if (Instance == null)

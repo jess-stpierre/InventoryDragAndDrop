@@ -1,8 +1,6 @@
 ﻿
 ///Permission to distribute belongs to Jess_StPierre on the Unity Asset Store. If you bought this asset, you have permission to use it in your project.
 
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
@@ -12,7 +10,7 @@ using UnityEngine;
 public class PlayerEventBroker
 {
     public delegate void GameObjectEvent(GameObject obj);
-    public static event GameObjectEvent OnSelectedEquippedItem;//, OnDropItem;
+    public static event GameObjectEvent OnSelectedEquippedItem;
     public delegate void GameObjectInventoryEvent(GameObject obj, InventoryItem inventoryItem);
     public static event GameObjectInventoryEvent OnSelectedInventoryItem;
 
