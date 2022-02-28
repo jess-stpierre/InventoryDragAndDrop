@@ -1,8 +1,6 @@
 ﻿
 ///Permission to distribute belongs to Jess_StPierre on the Unity Asset Store. If you bought this asset, you have permission to use it in your project.
 
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
@@ -20,8 +18,9 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] KeyCode right = KeyCode.D;
     [SerializeField] KeyCode left = KeyCode.A;
 
-    private void FixedUpdate()
+    private void FixedUpdate() //Fixed update so the movement isnt laggy
     {
+        //if inventory is closed allow player to move
         if(UIEventBroker.TriggerOnCheckInventoryStatus() == false) Movement();
     }
 
@@ -33,7 +32,6 @@ public class PlayerMovement : MonoBehaviour
         float zDirection = DirectionOutput(forwards, backwards);
         float xDirection = DirectionOutput(right, left);
         Vector3 newDir = transform.right * xDirection + transform.forward * zDirection;
-        //Vector3 newDir = new Vector3(xDirection, 0f, zDirection);
         Move(newDir.normalized);
     }
 
@@ -42,10 +40,10 @@ public class PlayerMovement : MonoBehaviour
     /// </summary>
     private void Move(Vector3 direction)
     {
-        Vector3 move = direction * speed;// * Time.deltaTime;
-        //rb.MovePosition(this.transform.position + move);
+        Vector3 move = direction * speed;
         rb.AddForce((move), ForceMode.Impulse);
 
+        //freeze or unfreeze player if we pressed or didnt press a key
         if(move == Vector3.zero)
 		{
             rb.constraints = RigidbodyConstraints.FreezeAll;

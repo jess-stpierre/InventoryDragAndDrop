@@ -1,8 +1,6 @@
 ﻿
 ///Permission to distribute belongs to Jess_StPierre on the Unity Asset Store. If you bought this asset, you have permission to use it in your project.
 
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
@@ -13,15 +11,20 @@ public class PlayerInventory : MonoBehaviour
 	[Header("Default button to interact is E, changeable below")]
 	[SerializeField] KeyCode interactKey = KeyCode.E;
     [Header(" ")]
+    [Tooltip("If you want players to have a 'press e to interact' popup before they can pickup items than make this true, else make this false")]
     [SerializeField] private bool havePressInteractPopUp = true;
 
 	private GameObject interactedOBJ;
 
     void Update()
     {
+        //if inventory UI is not active than we can allow player to pickup object
         if(UIEventBroker.TriggerOnCheckInventoryStatus() == false) PickupOBJ();
     }
 
+    /// <summary>
+    /// Attempt to pickup the object within the trigger zone
+    /// </summary>
     private void PickupOBJ()
     {
         if (havePressInteractPopUp && UIEventBroker.TriggerOnCheckPopupStatus()) //returns true if there is a pop up showed on screen saying "press E to interact"

@@ -1,12 +1,11 @@
 ﻿
 ///Permission to distribute belongs to Jess_StPierre on the Unity Asset Store. If you bought this asset, you have permission to use it in your project.
 
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// RENAME SCRIPT TO OBJECTSELECTION INSTEAD
+/// Handles the selection of objects on the hotbar
 /// </summary>
 public class ObjectHotbarSelection : MonoBehaviour
 {
@@ -44,7 +43,6 @@ public class ObjectHotbarSelection : MonoBehaviour
 			Selection(i, i);
 		}
 		SelectionUsageMouseScroll();
-		//DraggedItemToSelectedSlot();
 	}
 
 	/// <summary>

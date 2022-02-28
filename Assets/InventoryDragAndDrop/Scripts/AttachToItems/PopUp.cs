@@ -1,10 +1,11 @@
 ﻿
 ///Permission to distribute belongs to Jess_StPierre on the Unity Asset Store. If you bought this asset, you have permission to use it in your project.
 
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// "Press E to interact" popup functionality
+/// </summary>
 public class PopUp : MonoBehaviour
 {
 	[SerializeField] private GameObject popup;
@@ -21,7 +22,7 @@ public class PopUp : MonoBehaviour
 	{
 		if(popup.activeInHierarchy == true)
 		{
-			this.transform.LookAt(mainCamera.transform.position);
+			this.transform.LookAt(mainCamera.transform.position); //want this popup to always look at the camera, so we dont get anything weird
 		}
 	}
 

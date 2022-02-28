@@ -1,9 +1,6 @@
 ﻿
 ///Permission to distribute belongs to Jess_StPierre on the Unity Asset Store. If you bought this asset, you have permission to use it in your project.
 
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -52,13 +49,14 @@ public class Object : MonoBehaviour
 
 	public void DropItem()
 	{
+        // When we drop an item from our hand we want to instantiate it in 3D in the scene, so that it's pickable again
         GameObject newInHandOBJ = Instantiate(this.gameObject, this.transform.parent);
         newInHandOBJ.SetActive(false);
 
         this.transform.parent = null;
         this.gameObject.AddComponent<Rigidbody>();
         this.gameObject.GetComponent<Rigidbody>().useGravity = true;
-        UIEventBroker.TriggerOnRemoveItem(inventoryItem);
+        UIEventBroker.TriggerOnRemoveItem(inventoryItem); //make sure we remove the item from the inventory hotbar
         this.gameObject.transform.GetChild(0).gameObject.SetActive(true);
         showPopup.Invoke();
         popupActive = true;
@@ -84,6 +82,7 @@ public class Object : MonoBehaviour
     {
         if(other.gameObject.CompareTag("Player"))
         {
+            //if player is far from trigger zone collider than hide the "press e to interact" popup
             hidePopup.Invoke();
             popupActive = false;
         }
@@ -94,7 +93,7 @@ public class Object : MonoBehaviour
     /// </summary>
     public void AttemptPickup()
     {
-        UIEventBroker.TriggerOnAddToSlots(this.gameObject, inventoryItem);
+        UIEventBroker.TriggerOnAddToSlots(inventoryItem);
         this.gameObject.SetActive(false);
         hidePopup.Invoke();
     }

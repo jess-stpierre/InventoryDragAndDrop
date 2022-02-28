@@ -1,7 +1,5 @@
 ﻿///Permission to distribute belongs to Jess_StPierre on the Unity Asset Store. If you bought this asset, you have permission to use it in your project.
 
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerItemDrop : MonoBehaviour
@@ -22,6 +20,9 @@ public class PlayerItemDrop : MonoBehaviour
 		PlayerEventBroker.OnSelectedInventoryItem -= SetOnSelectedInventoryItem;
 	}
 
+	/// <summary>
+	/// Gets the item selected in players hand so we have a reference in this script
+	/// </summary>
 	private void SetOnSelectedInventoryItem(GameObject obj, InventoryItem inventoryItem)
 	{
 		selectedOBJ = obj;
@@ -30,6 +31,7 @@ public class PlayerItemDrop : MonoBehaviour
 
 	private void Update()
 	{
+		//Only allow dropping of items when inventory closed + Pressed Button
 		if (UIEventBroker.TriggerOnCheckInventoryStatus() == false && Input.GetMouseButtonDown(mouseButton) && selectedOBJ != null && selectedInventoryItem != null)
 		{
 			selectedOBJ.GetComponent<Object>().DropItem();

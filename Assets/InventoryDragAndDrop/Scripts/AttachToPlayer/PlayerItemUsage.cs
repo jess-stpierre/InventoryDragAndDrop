@@ -1,11 +1,10 @@
 ﻿///Permission to distribute belongs to Jess_StPierre on the Unity Asset Store. If you bought this asset, you have permission to use it in your project.
 
-
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Allows players to use the items they have selected in their hand + hotbar
+/// </summary>
 public class PlayerItemUsage : MonoBehaviour
 {
 	[Header("0 is left click, 1 is right click, 2 is middle click")]
@@ -24,6 +23,9 @@ public class PlayerItemUsage : MonoBehaviour
 		PlayerEventBroker.OnSelectedInventoryItem -= SetOnSelectedInventoryItem;
 	}
 
+	/// <summary>
+	/// Gets the selected item so we have a reference in this script
+	/// </summary>
 	private void SetOnSelectedInventoryItem(GameObject obj, InventoryItem inventoryItem)
 	{
 		selectedOBJ = obj;
@@ -32,10 +34,12 @@ public class PlayerItemUsage : MonoBehaviour
 
 	private void Update()
 	{
-		if (UIEventBroker.TriggerOnCheckInventoryStatus() == false && Input.GetMouseButtonDown(mouseButton) && selectedOBJ != null && selectedInventoryItem != null) // && UIEventBroker.TriggerOnCheckInventoryStatus() == false)
+		//If inventory is closed + pressed button
+		if (UIEventBroker.TriggerOnCheckInventoryStatus() == false && Input.GetMouseButtonDown(mouseButton) && selectedOBJ != null && selectedInventoryItem != null)
 		{
 			selectedOBJ.GetComponent<Object>().currentDurability = selectedOBJ.GetComponent<Object>().currentDurability - 1;
 
+			//use the selected item
 			selectedInventoryItem.usage.Invoke();
 
 			if(selectedOBJ.GetComponent<Object>().currentDurability <= 0)

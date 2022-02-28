@@ -1,10 +1,11 @@
 ﻿
 ///Permission to distribute belongs to Jess_StPierre on the Unity Asset Store. If you bought this asset, you have permission to use it in your project.
 
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Using the inventoryKey, can open or close the inventory in game
+/// </summary>
 public class OpenCloseInventory : MonoBehaviour
 {
     [Header("Default button for inventory is Q, changeable below")]
@@ -25,7 +26,7 @@ public class OpenCloseInventory : MonoBehaviour
             }
             else 
             {
-                UIEventBroker.TriggerOnOpenInventory(); //if inventory i closed than open it
+                UIEventBroker.TriggerOnOpenInventory(); //if inventory is closed than open it
             }
         }
     }
