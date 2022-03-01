@@ -23,8 +23,6 @@ public class Object : MonoBehaviour
 
     private bool popupActive = false;
 
-    [SerializeField] private Collider triggerCollider;
-
     private void Awake()
     {
         UIEventBroker.OnCheckPopupStatus += SetOnCheckPopupStatus;
@@ -60,7 +58,6 @@ public class Object : MonoBehaviour
         this.gameObject.transform.GetChild(0).gameObject.SetActive(true);
         showPopup.Invoke();
         popupActive = true;
-        triggerCollider.enabled = true;
     }
 
 	private bool SetOnCheckPopupStatus()
