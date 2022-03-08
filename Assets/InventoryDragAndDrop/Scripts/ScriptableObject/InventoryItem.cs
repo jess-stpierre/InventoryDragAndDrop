@@ -20,7 +20,8 @@ public class InventoryItem : ScriptableObject
 		Light,
 		Heal,
 		Mana,
-		Ammo
+		Ammo,
+		Other
 	}
 	public ItemType currentItemType;
 

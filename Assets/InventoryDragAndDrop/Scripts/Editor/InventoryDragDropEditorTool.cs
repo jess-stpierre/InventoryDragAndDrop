@@ -4,11 +4,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEditor;
 
 /// <summary>
 /// Tool to help buyers use this asset 
 /// </summary>
+[CustomEditor(typeof(InventoryItem))]
 public class InventoryDragDropEditorTool : EditorWindow
 {
 	[MenuItem("Tools/InventoryDragDropEditorTool")]
@@ -18,6 +20,12 @@ public class InventoryDragDropEditorTool : EditorWindow
 	}
 
 	private GameObject prefab;
+	private int numberSubmittedNewOBJ;
+	private string itemName;
+	private string description;
+	private Sprite sprite;
+	private UnityEvent function;
+	SerializedProperty usage;
 
 	private void OnGUI()
 	{
@@ -30,9 +38,21 @@ public class InventoryDragDropEditorTool : EditorWindow
 
 		GUILayout.Label("Enter the required fields than press submit to create your pickup-able object", bigBold);
 
-		prefab = (GameObject)EditorGUILayout.ObjectField("Prefab", prefab, typeof(Object), true);
+		prefab = (GameObject)EditorGUILayout.ObjectField("Prefab", prefab, typeof(GameObject), true);
 
-		//Add sphere collider that is a trigger to the prefab + adjust the size of the trigger collider
+		itemName = EditorGUILayout.TextField("Item Name", itemName);
+		description = EditorGUILayout.TextField("Item Description", description);
+		sprite = (Sprite)EditorGUILayout.ObjectField("Item Sprite", sprite, typeof(Sprite), true);
+
+		//usage.FindPropertyRelative("InventoryItem");
+
+		// Draw the Inspector widget for this property.
+		
+
+		// Commit changes to the property back to the component we're editing.
+
+		//build scriptable object at run-time
+
 		//Add Object.cs script
 		//Add Inventory Item to the slot in Object.prefab...we actually have to build it with all the stuffs
 
@@ -40,6 +60,27 @@ public class InventoryDragDropEditorTool : EditorWindow
 		//Use prefab we made for the popupHolder??!!!
 
 		//SUBMIT!!!
+		if (GUILayout.Button("Create pickup-able object") == true)
+		{
+			numberSubmittedNewOBJ++;
+
+			prefab.AddComponent<SphereCollider>();
+			prefab.GetComponent<SphereCollider>().isTrigger = true;
+			prefab.GetComponent<SphereCollider>().radius = 3f;
+
+			prefab.AddComponent<Object>();
+
+			InventoryItem newItem = ScriptableObject.CreateInstance<InventoryItem>();
+			newItem.name = itemName;
+			AssetDatabase.CreateAsset(newItem, $"Assets/InventoryDragAndDrop/Scripts/ScriptableObject/InventoryObjects/{itemName}.asset");
+			newItem.itemName = itemName;
+			newItem.itemDescription = description;
+
+			SerializedObject serializedObject = new UnityEditor.SerializedObject(newItem);
+			usage = serializedObject.FindProperty("usage");
+			EditorGUILayout.PropertyField(usage, true);
+		}
+		
 
 		GUILayout.EndVertical();
 	}
