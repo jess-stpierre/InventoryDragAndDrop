@@ -21,6 +21,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 11400000}
+        m_TargetAssemblyTypeName: 
         m_MethodName: UseAmmo
         m_Mode: 1
         m_Arguments:

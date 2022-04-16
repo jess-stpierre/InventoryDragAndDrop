@@ -18,14 +18,17 @@ public class Object : MonoBehaviour
     /// <summary>
     /// Unity Events allow you to hook up any public function in a script
     /// </summary>
-    [SerializeField] private UnityEvent showPopup; 
-    [SerializeField] private UnityEvent hidePopup;
+    public UnityEvent showPopup; 
+    public UnityEvent hidePopup;
 
     private bool popupActive = false;
 
     private void Awake()
     {
         UIEventBroker.OnCheckPopupStatus += SetOnCheckPopupStatus;
+
+        hidePopup.Invoke();
+        popupActive = false;
     }
 
 	private void OnEnable()

@@ -3,8 +3,10 @@
 
 using System.Collections;
 using System.Collections.Generic;
+using System;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEditor.Events;
 using UnityEditor;
 
 /// <summary>
@@ -24,8 +26,10 @@ public class InventoryDragDropEditorTool : EditorWindow
 	private string itemName;
 	private string description;
 	private Sprite sprite;
-	private UnityEvent function;
-	SerializedProperty usage;
+	//private UnityEvent function;
+	//SerializedProperty usage;
+	private int durability;
+	//private GameObject popupHolder;
 
 	private void OnGUI()
 	{
@@ -36,18 +40,20 @@ public class InventoryDragDropEditorTool : EditorWindow
 		bigBold.fontSize = 16;
 		bigBold.fontStyle = FontStyle.Bold;
 
-		GUILayout.Label("Enter the required fields than press submit to create your pickup-able object", bigBold);
+		GUILayout.Label("Required fields to create your pickup-able object", bigBold);
 
+		GUILayout.Label("Chosen prefab must have Mesh Filter & Mesh Renderer");
 		prefab = (GameObject)EditorGUILayout.ObjectField("Prefab", prefab, typeof(GameObject), true);
 
 		itemName = EditorGUILayout.TextField("Item Name", itemName);
 		description = EditorGUILayout.TextField("Item Description", description);
 		sprite = (Sprite)EditorGUILayout.ObjectField("Item Sprite", sprite, typeof(Sprite), true);
+		durability = EditorGUILayout.IntField("Durability", durability);
 
-		//usage.FindPropertyRelative("InventoryItem");
+
 
 		// Draw the Inspector widget for this property.
-		
+
 
 		// Commit changes to the property back to the component we're editing.
 
@@ -68,6 +74,8 @@ public class InventoryDragDropEditorTool : EditorWindow
 			prefab.GetComponent<SphereCollider>().isTrigger = true;
 			prefab.GetComponent<SphereCollider>().radius = 3f;
 
+			//MISSING SMALL NON TRIGGER COLLIDER
+
 			prefab.AddComponent<Object>();
 
 			InventoryItem newItem = ScriptableObject.CreateInstance<InventoryItem>();
@@ -75,10 +83,30 @@ public class InventoryDragDropEditorTool : EditorWindow
 			AssetDatabase.CreateAsset(newItem, $"Assets/InventoryDragAndDrop/Scripts/ScriptableObject/InventoryObjects/{itemName}.asset");
 			newItem.itemName = itemName;
 			newItem.itemDescription = description;
+			newItem.itemImage = sprite;
+			
+			newItem.totalDurability = durability;
+
+			prefab.GetComponent<Object>().inventoryItem = newItem;
+
+			UnityEngine.Object popupHolder = AssetDatabase.LoadAssetAtPath("Assets/InventoryDragAndDrop/Prefabs/ItemChildren/PopUpHolder.prefab", typeof(GameObject));
+			PrefabUtility.InstantiatePrefab(popupHolder, prefab.transform);
+			GameObject popupHolderOBJ = (GameObject)popupHolder;
+
+			PopUp target = prefab.transform.GetChild(0).gameObject.GetComponent<PopUp>();
+
+			var WantedMethod1 = target.GetType().GetMethod("ShowPopup");
+			var delegate1 = Delegate.CreateDelegate(typeof(UnityAction), target, WantedMethod1) as UnityAction;
+			UnityEventTools.AddPersistentListener(prefab.GetComponent<Object>().showPopup, delegate1);
+
+			var WantedMethod2 = target.GetType().GetMethod("HidePopup");
+			var delegate2 = Delegate.CreateDelegate(typeof(UnityAction), target, WantedMethod2) as UnityAction;
+			UnityEventTools.AddPersistentListener(prefab.GetComponent<Object>().hidePopup, delegate2);
 
 			SerializedObject serializedObject = new UnityEditor.SerializedObject(newItem);
-			usage = serializedObject.FindProperty("usage");
-			EditorGUILayout.PropertyField(usage, true);
+			newItem.itemPrefab = prefab;
+			//usage = serializedObject.FindProperty("usage");
+			//EditorGUILayout.PropertyField(usage, true);
 		}
 		
 
