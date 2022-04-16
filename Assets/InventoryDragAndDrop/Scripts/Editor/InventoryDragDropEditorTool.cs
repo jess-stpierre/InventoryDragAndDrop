@@ -51,21 +51,6 @@ public class InventoryDragDropEditorTool : EditorWindow
 		durability = EditorGUILayout.IntField("Durability", durability);
 
 
-
-		// Draw the Inspector widget for this property.
-
-
-		// Commit changes to the property back to the component we're editing.
-
-		//build scriptable object at run-time
-
-		//Add Object.cs script
-		//Add Inventory Item to the slot in Object.prefab...we actually have to build it with all the stuffs
-
-		//Add PopUpHolder as a child with PopupText, put those proper functions in the Object.cs slots
-		//Use prefab we made for the popupHolder??!!!
-
-		//SUBMIT!!!
 		if (GUILayout.Button("Create pickup-able object") == true)
 		{
 			numberSubmittedNewOBJ++;
@@ -105,8 +90,6 @@ public class InventoryDragDropEditorTool : EditorWindow
 
 			SerializedObject serializedObject = new UnityEditor.SerializedObject(newItem);
 			newItem.itemPrefab = prefab;
-			//usage = serializedObject.FindProperty("usage");
-			//EditorGUILayout.PropertyField(usage, true);
 		}
 		
 
