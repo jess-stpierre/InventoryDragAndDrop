@@ -26,7 +26,6 @@ public class Object : MonoBehaviour
     private void Awake()
     {
         UIEventBroker.OnCheckPopupStatus += SetOnCheckPopupStatus;
-
         hidePopup.Invoke();
         popupActive = false;
     }
@@ -57,10 +56,13 @@ public class Object : MonoBehaviour
         this.transform.parent = null;
         this.gameObject.AddComponent<Rigidbody>();
         this.gameObject.GetComponent<Rigidbody>().useGravity = true;
+        this.gameObject.GetComponent<Rigidbody>().collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
         UIEventBroker.TriggerOnRemoveItem(inventoryItem); //make sure we remove the item from the inventory hotbar
         this.gameObject.transform.GetChild(0).gameObject.SetActive(true);
-        showPopup.Invoke();
-        popupActive = true;
+        // showPopup.Invoke();
+        // popupActive = true;
+        hidePopup.Invoke();
+        popupActive = false;
     }
 
 	private bool SetOnCheckPopupStatus()
@@ -78,7 +80,7 @@ public class Object : MonoBehaviour
         }
     }
 
-    private void OnTriggerExit(Collider other) 
+    private void OnTriggerExit(Collider other)
     {
         if(other.gameObject.CompareTag("Player"))
         {

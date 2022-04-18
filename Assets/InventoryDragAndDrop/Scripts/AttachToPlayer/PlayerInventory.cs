@@ -31,7 +31,11 @@ public class PlayerInventory : MonoBehaviour
         {
             if (Input.GetKeyDown(interactKey))
             {
-                if(interactedOBJ != null) interactedOBJ.GetComponent<Object>().AttemptPickup();
+                if (interactedOBJ != null)
+                {
+                    interactedOBJ.GetComponent<Object>().AttemptPickup();
+                    interactedOBJ = null;
+                }
             }
         }
         else if (havePressInteractPopUp == false && interactedOBJ != null)
@@ -39,6 +43,7 @@ public class PlayerInventory : MonoBehaviour
             if (Input.GetKeyDown(interactKey))
             {
                 interactedOBJ.GetComponent<Object>().AttemptPickup();
+                interactedOBJ = null;
             }
         }
     }

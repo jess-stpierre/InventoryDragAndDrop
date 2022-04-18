@@ -51,7 +51,14 @@ public class PlayerSpawnSelectedItem : MonoBehaviour
 					newInventoryItem = spawnSpot.transform.GetChild(j).gameObject.GetComponent<Object>().inventoryItem;
 					break;
 				}
+			}
 
+			if(newChild == null && newInventoryItem == null && obj != null)
+            {
+				GameObject spawnedInHand = Instantiate(obj, spawnSpot.transform);
+				spawnedInHand.transform.GetChild(0).gameObject.SetActive(false);
+				newChild = spawnedInHand;
+				newInventoryItem = spawnedInHand.gameObject.GetComponent<Object>().inventoryItem;
 			}
 		}
 
