@@ -37,8 +37,6 @@ public class InventoryDragDropEditorTool : EditorWindow
 
 	private InventoryItem selectedItem;
 
-	private UnityEvent chosenUsage;
-
 	private void OnGUI()
 	{
 		GUILayout.Space(10);
@@ -83,8 +81,8 @@ public class InventoryDragDropEditorTool : EditorWindow
 			prefab.GetComponent<BoxCollider>().size = Vector3.one;
 
 			prefab.AddComponent<Object>();
-			
 
+			
 
 			InventoryItem newItem = ScriptableObject.CreateInstance<InventoryItem>();
 			newItem.name = itemName;
@@ -94,11 +92,46 @@ public class InventoryDragDropEditorTool : EditorWindow
 			newItem.itemImage = sprite;
 			newItem.currentItemType = chosenItemType;
 
-            switch (chosenItemType)
+			
+			
+
+			InventoryItem target_0 = newItem;
+			switch (chosenItemType)
             {
 				case InventoryItem.ItemType.Hit:
-					// NOT WORKING chosenUsage.AddListener(newItem.Hit);
+					var Wanted_Method0 = target_0.GetType().GetMethod("Hit");
+					var delegate_0 = Delegate.CreateDelegate(typeof(UnityAction), target_0, Wanted_Method0) as UnityAction;
+					UnityEventTools.AddPersistentListener(newItem.usage, delegate_0);
 					break;
+				case InventoryItem.ItemType.Shoot:
+					var Wanted_Method1 = target_0.GetType().GetMethod("Shoot");
+					var delegate_1 = Delegate.CreateDelegate(typeof(UnityAction), target_0, Wanted_Method1) as UnityAction;
+					UnityEventTools.AddPersistentListener(newItem.usage, delegate_1);
+					break;
+				case InventoryItem.ItemType.Light:
+					var Wanted_Method2 = target_0.GetType().GetMethod("Light");
+					var delegate_2 = Delegate.CreateDelegate(typeof(UnityAction), target_0, Wanted_Method2) as UnityAction;
+					UnityEventTools.AddPersistentListener(newItem.usage, delegate_2);
+					break;
+				case InventoryItem.ItemType.Heal:
+					var Wanted_Method3 = target_0.GetType().GetMethod("Heal");
+					var delegate_3 = Delegate.CreateDelegate(typeof(UnityAction), target_0, Wanted_Method3) as UnityAction;
+					UnityEventTools.AddPersistentListener(newItem.usage, delegate_3);
+					break;
+				case InventoryItem.ItemType.Mana:
+					var Wanted_Method4 = target_0.GetType().GetMethod("UseMana");
+					var delegate_4 = Delegate.CreateDelegate(typeof(UnityAction), target_0, Wanted_Method4) as UnityAction;
+					UnityEventTools.AddPersistentListener(newItem.usage, delegate_4);
+					break;
+				case InventoryItem.ItemType.Ammo:
+					var Wanted_Method5 = target_0.GetType().GetMethod("UseAmmo");
+					var delegate_5 = Delegate.CreateDelegate(typeof(UnityAction), target_0, Wanted_Method5) as UnityAction;
+					UnityEventTools.AddPersistentListener(newItem.usage, delegate_5);
+					break;
+				case InventoryItem.ItemType.Other:
+					Debug.Log("Please enter a valid Usage function for : " + newItem.name);
+					break;
+
             }
 
 			newItem.totalDurability = durability;
@@ -119,9 +152,9 @@ public class InventoryDragDropEditorTool : EditorWindow
 			var delegate2 = Delegate.CreateDelegate(typeof(UnityAction), target, WantedMethod2) as UnityAction;
 			UnityEventTools.AddPersistentListener(prefab.GetComponent<Object>().hidePopup, delegate2);
 
+			GameObject obj = PrefabUtility.SaveAsPrefabAssetAndConnect(prefab, $"Assets/InventoryDragAndDrop/Prefabs/ItemPrefabs/{itemName}.prefab", InteractionMode.UserAction);
 			//SerializedObject serializedObject = new UnityEditor.SerializedObject(newItem);
 			newItem.itemPrefab = AssetDatabase.LoadAssetAtPath<GameObject>($"Assets/InventoryDragAndDrop/Prefabs/ItemPrefabs/{itemName}.prefab");
-			GameObject obj = PrefabUtility.SaveAsPrefabAssetAndConnect(prefab, $"Assets/InventoryDragAndDrop/Prefabs/ItemPrefabs/{itemName}.prefab", InteractionMode.UserAction);
 			//newItem.itemPrefab = obj;
 		}
 
