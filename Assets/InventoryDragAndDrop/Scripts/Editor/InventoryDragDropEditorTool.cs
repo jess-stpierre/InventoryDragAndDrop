@@ -37,6 +37,8 @@ public class InventoryDragDropEditorTool : EditorWindow
 
 	private InventoryItem selectedItem;
 
+	private UnityEvent chosenUsage;
+
 	private void OnGUI()
 	{
 		GUILayout.Space(10);
@@ -51,10 +53,11 @@ public class InventoryDragDropEditorTool : EditorWindow
 		GUILayout.Label("Required fields to create your pickup-able object", bigBold);
 
 		GUILayout.Label("Chosen prefab must have Mesh Filter & Mesh Renderer");
+		GUILayout.Label("Default location of prefab is: \n Assets/InventoryDragAndDrop/Prefabs/ItemPrefabs/*ItemName*.prefab");
 		prefab = (GameObject)EditorGUILayout.ObjectField("Prefab", prefab, typeof(GameObject), true);
 
-		GUILayout.Label("Default location of prefab is: \n Assets/InventoryDragAndDrop/Scripts/ScriptableObject/InventoryObjects");
-		prefabLocation = EditorGUILayout.TextField("Location to Store prefab", prefabLocation);
+		GUILayout.Label("Default location of scriptable object is: \n Assets/InventoryDragAndDrop/Scripts/ScriptableObject/InventoryObjects");
+		prefabLocation = EditorGUILayout.TextField("Location to Store Scriptable Object", prefabLocation);
 
 		itemName = EditorGUILayout.TextField("Item Name", itemName);
 		description = EditorGUILayout.TextField("Item Description", description);
@@ -80,6 +83,8 @@ public class InventoryDragDropEditorTool : EditorWindow
 			prefab.GetComponent<BoxCollider>().size = Vector3.one;
 
 			prefab.AddComponent<Object>();
+			
+
 
 			InventoryItem newItem = ScriptableObject.CreateInstance<InventoryItem>();
 			newItem.name = itemName;
@@ -88,6 +93,13 @@ public class InventoryDragDropEditorTool : EditorWindow
 			newItem.itemDescription = description;
 			newItem.itemImage = sprite;
 			newItem.currentItemType = chosenItemType;
+
+            switch (chosenItemType)
+            {
+				case InventoryItem.ItemType.Hit:
+					// NOT WORKING chosenUsage.AddListener(newItem.Hit);
+					break;
+            }
 
 			newItem.totalDurability = durability;
 
@@ -107,8 +119,10 @@ public class InventoryDragDropEditorTool : EditorWindow
 			var delegate2 = Delegate.CreateDelegate(typeof(UnityAction), target, WantedMethod2) as UnityAction;
 			UnityEventTools.AddPersistentListener(prefab.GetComponent<Object>().hidePopup, delegate2);
 
-			SerializedObject serializedObject = new UnityEditor.SerializedObject(newItem);
-			newItem.itemPrefab = prefab;
+			//SerializedObject serializedObject = new UnityEditor.SerializedObject(newItem);
+			newItem.itemPrefab = AssetDatabase.LoadAssetAtPath<GameObject>($"Assets/InventoryDragAndDrop/Prefabs/ItemPrefabs/{itemName}.prefab");
+			GameObject obj = PrefabUtility.SaveAsPrefabAssetAndConnect(prefab, $"Assets/InventoryDragAndDrop/Prefabs/ItemPrefabs/{itemName}.prefab", InteractionMode.UserAction);
+			//newItem.itemPrefab = obj;
 		}
 
 
