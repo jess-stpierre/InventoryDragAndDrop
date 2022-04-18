@@ -30,6 +30,8 @@ public class InventoryDragDropEditorTool : EditorWindow
 	//SerializedProperty usage;
 	private int durability;
 	//private GameObject popupHolder;
+	private string prefabLocation;
+	private string popUpHolderLocation;
 
 	private void OnGUI()
 	{
@@ -40,15 +42,24 @@ public class InventoryDragDropEditorTool : EditorWindow
 		bigBold.fontSize = 16;
 		bigBold.fontStyle = FontStyle.Bold;
 
+		prefabLocation = "Assets/InventoryDragAndDrop/Scripts/ScriptableObject/InventoryObjects";
+
 		GUILayout.Label("Required fields to create your pickup-able object", bigBold);
 
 		GUILayout.Label("Chosen prefab must have Mesh Filter & Mesh Renderer");
 		prefab = (GameObject)EditorGUILayout.ObjectField("Prefab", prefab, typeof(GameObject), true);
 
+		GUILayout.Label("Default location of prefab is: \n Assets/InventoryDragAndDrop/Scripts/ScriptableObject/InventoryObjects");
+		prefabLocation = EditorGUILayout.TextField("Location to Store prefab", prefabLocation);
+
 		itemName = EditorGUILayout.TextField("Item Name", itemName);
 		description = EditorGUILayout.TextField("Item Description", description);
 		sprite = (Sprite)EditorGUILayout.ObjectField("Item Sprite", sprite, typeof(Sprite), true);
 		durability = EditorGUILayout.IntField("Durability", durability);
+
+		popUpHolderLocation = "Assets/InventoryDragAndDrop/Prefabs/ItemChildren/PopUpHolder.prefab";
+		GUILayout.Label("Default location of PopUpHolder is: \n Assets/InventoryDragAndDrop/Prefabs/ItemChildren/PopUpHolder.prefab");
+		popUpHolderLocation = EditorGUILayout.TextField("Location of PopUpHolder", popUpHolderLocation);
 
 
 		if (GUILayout.Button("Create pickup-able object") == true)
@@ -59,13 +70,15 @@ public class InventoryDragDropEditorTool : EditorWindow
 			prefab.GetComponent<SphereCollider>().isTrigger = true;
 			prefab.GetComponent<SphereCollider>().radius = 3f;
 
-			//MISSING SMALL NON TRIGGER COLLIDER
+			prefab.AddComponent<BoxCollider>();
+			prefab.GetComponent<BoxCollider>().isTrigger = false;
+			prefab.GetComponent<BoxCollider>().size = Vector3.one;
 
 			prefab.AddComponent<Object>();
 
 			InventoryItem newItem = ScriptableObject.CreateInstance<InventoryItem>();
 			newItem.name = itemName;
-			AssetDatabase.CreateAsset(newItem, $"Assets/InventoryDragAndDrop/Scripts/ScriptableObject/InventoryObjects/{itemName}.asset");
+			AssetDatabase.CreateAsset(newItem, $"{prefabLocation}/{itemName}.asset");
 			newItem.itemName = itemName;
 			newItem.itemDescription = description;
 			newItem.itemImage = sprite;
@@ -74,7 +87,7 @@ public class InventoryDragDropEditorTool : EditorWindow
 
 			prefab.GetComponent<Object>().inventoryItem = newItem;
 
-			UnityEngine.Object popupHolder = AssetDatabase.LoadAssetAtPath("Assets/InventoryDragAndDrop/Prefabs/ItemChildren/PopUpHolder.prefab", typeof(GameObject));
+			UnityEngine.Object popupHolder = AssetDatabase.LoadAssetAtPath($"{popUpHolderLocation}", typeof(GameObject));
 			PrefabUtility.InstantiatePrefab(popupHolder, prefab.transform);
 			GameObject popupHolderOBJ = (GameObject)popupHolder;
 
