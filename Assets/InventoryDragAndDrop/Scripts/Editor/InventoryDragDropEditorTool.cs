@@ -18,7 +18,8 @@ public class InventoryDragDropEditorTool : EditorWindow
 	[MenuItem("Tools/InventoryDragDropEditorTool")]
 	public static void ShowWindow()
 	{
-		GetWindow<InventoryDragDropEditorTool>();
+		InventoryDragDropEditorTool window = GetWindow<InventoryDragDropEditorTool>();
+		window.minSize = new Vector2(583f, 531f);
 	}
 
 	private GameObject prefab;
