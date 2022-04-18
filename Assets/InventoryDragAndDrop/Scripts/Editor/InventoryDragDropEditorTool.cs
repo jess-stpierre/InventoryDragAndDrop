@@ -33,6 +33,8 @@ public class InventoryDragDropEditorTool : EditorWindow
 	private string prefabLocation;
 	private string popUpHolderLocation;
 
+	private InventoryItem.ItemType chosenItemType;
+
 	private void OnGUI()
 	{
 		GUILayout.Space(10);
@@ -61,6 +63,7 @@ public class InventoryDragDropEditorTool : EditorWindow
 		GUILayout.Label("Default location of PopUpHolder is: \n Assets/InventoryDragAndDrop/Prefabs/ItemChildren/PopUpHolder.prefab");
 		popUpHolderLocation = EditorGUILayout.TextField("Location of PopUpHolder", popUpHolderLocation);
 
+		chosenItemType = (InventoryItem.ItemType)EditorGUILayout.EnumPopup("Item type:", chosenItemType);
 
 		if (GUILayout.Button("Create pickup-able object") == true)
 		{
@@ -82,7 +85,8 @@ public class InventoryDragDropEditorTool : EditorWindow
 			newItem.itemName = itemName;
 			newItem.itemDescription = description;
 			newItem.itemImage = sprite;
-			
+			newItem.currentItemType = chosenItemType;
+
 			newItem.totalDurability = durability;
 
 			prefab.GetComponent<Object>().inventoryItem = newItem;
