@@ -35,6 +35,8 @@ public class InventoryDragDropEditorTool : EditorWindow
 
 	private InventoryItem.ItemType chosenItemType;
 
+	private InventoryItem selectedItem;
+
 	private void OnGUI()
 	{
 		GUILayout.Space(10);
@@ -108,8 +110,20 @@ public class InventoryDragDropEditorTool : EditorWindow
 			SerializedObject serializedObject = new UnityEditor.SerializedObject(newItem);
 			newItem.itemPrefab = prefab;
 		}
-		
 
-		GUILayout.EndVertical();
+
+		GUILayout.Label(" \n \n Required fields to find an object created", bigBold);
+
+		GUILayout.Label("Will open chosen Inventory Item in the inspector, for easy editing");
+
+		selectedItem = (InventoryItem)EditorGUILayout.ObjectField("Inventory Item", selectedItem, typeof(InventoryItem), true);
+
+		if (GUILayout.Button("Open Inventory Item Data") == true)
+        {
+			AssetDatabase.OpenAsset(selectedItem);
+        }
+
+
+			GUILayout.EndVertical();
 	}
 }
