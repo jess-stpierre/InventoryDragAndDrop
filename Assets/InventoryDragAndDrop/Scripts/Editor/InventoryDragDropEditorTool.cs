@@ -19,9 +19,11 @@ public class InventoryDragDropEditorTool : EditorWindow
 	Texture2D headerTexture;
 	Rect headerSize;
 
+	Color sectionUnoColor = new Color(0f / 255f, 50f / 255f, 126 / 255f, 1f);
 	Texture2D sectionUnoTexture;
 	Rect sectionUnoSize;
 
+	Color sectionDosColor = new Color(53f / 255f, 0f / 255f, 126 / 255f, 1f);
 	Texture2D sectionDosTexture;
 	Rect sectionDosSize;
 
@@ -29,7 +31,7 @@ public class InventoryDragDropEditorTool : EditorWindow
 	public static void ShowWindow()
 	{
 		InventoryDragDropEditorTool window = GetWindow<InventoryDragDropEditorTool>();
-		window.minSize = new Vector2(583f, 531f);
+		window.minSize = new Vector2(583f, 850f);
 	}
 
 	private GameObject prefab;
@@ -48,8 +50,32 @@ public class InventoryDragDropEditorTool : EditorWindow
 
 	private InventoryItem selectedItem;
 
+	private GUIStyle bigBoldWhite;
+	private GUIStyle bigBoldBlack;
+	
+	private GUIStyle smallWhite;
+	private GUIStyle smallBlack;
+
     private void OnEnable()
     {
+		bigBoldWhite = new GUIStyle();
+		bigBoldWhite.fontSize = 20;
+		bigBoldWhite.fontStyle = FontStyle.Bold;
+		bigBoldWhite.normal.textColor = Color.white;
+
+		bigBoldBlack = new GUIStyle();
+		bigBoldBlack.fontSize = 20;
+		bigBoldBlack.fontStyle = FontStyle.Bold;
+		bigBoldBlack.normal.textColor = Color.black;
+
+		smallWhite = new GUIStyle();
+		smallWhite.fontStyle = FontStyle.Bold;
+		smallWhite.normal.textColor = Color.white;
+
+		smallBlack = new GUIStyle();
+		smallBlack.fontStyle = FontStyle.Bold;
+		smallBlack.normal.textColor = Color.black;
+
 		InitializeTextures();
 	}
 
@@ -58,68 +84,110 @@ public class InventoryDragDropEditorTool : EditorWindow
 		headerTexture = new Texture2D(1, 1);
 		headerTexture.SetPixel(0, 0, headerColor);
 		headerTexture.Apply();
-    }
+
+		sectionUnoTexture = new Texture2D(1, 1);
+		sectionUnoTexture.SetPixel(0, 0, sectionUnoColor);
+		sectionUnoTexture.Apply();
+
+		sectionDosTexture = new Texture2D(1, 1);
+		sectionDosTexture.SetPixel(0, 0, sectionDosColor);
+		sectionDosTexture.Apply();
+	}
 
 	private void DrawAllLayouts()
     {
-		headerSize.x = 0;
+		headerSize.x = 50;
 		headerSize.y = 0;
-		headerSize.width = Screen.width;
+		headerSize.width = Screen.width-100;
 		headerSize.height = 50;
 
+		sectionUnoSize.x = 0;
+		sectionUnoSize.y = 50;
+		sectionUnoSize.width = Screen.width;
+		sectionUnoSize.height = 600;
+
+		sectionDosSize.x = 0;
+		sectionDosSize.y = 600;
+		sectionDosSize.width = Screen.width;
+		sectionDosSize.height = 170;
+
 		GUI.DrawTexture(headerSize, headerTexture);
-    }
+		GUI.DrawTexture(sectionUnoSize, sectionUnoTexture);
+		GUI.DrawTexture(sectionDosSize, sectionDosTexture);
+	}
 
 	private void DrawHeader()
     {
-
+		GUILayout.BeginArea(headerSize);
+		GUILayout.Space(10);
+		GUILayout.Label("        INVENTORY DRAG DROP EDITOR TOOL", bigBoldBlack);
+		GUILayout.EndArea();
     }
 
-	private void DrawSectionUnoSettings()
+	private void DrawSectionUno()
     {
+		GUILayout.BeginArea(sectionUnoSize);
+		GUILayout.Space(10);
+		GUILayout.Label("SECTION 1: Create pickup-able object", bigBoldWhite);
 
-    }
+		PickupAbleObjectCreation();
 
-	private void DrawSectionDosSettings()
-	{
-
+		GUILayout.EndArea();
 	}
 
-	private void OnGUI()
+	private void DrawSectionDos()
 	{
-		DrawAllLayouts();
-		DrawHeader();
-		DrawSectionUnoSettings();
-		DrawSectionDosSettings();
-
+		GUILayout.BeginArea(sectionDosSize);
 		GUILayout.Space(10);
-		GUILayout.BeginVertical();
+		GUILayout.Label("SECTION 2: Find a pickup-able object", bigBoldWhite);
 
-		GUIStyle bigBold = new GUIStyle();
-		bigBold.fontSize = 16;
-		bigBold.fontStyle = FontStyle.Bold;
+		PickupAbleObjectSearch();
 
+		GUILayout.EndArea();
+	}
+
+	private void PickupAbleObjectCreation()
+    {
 		prefabLocation = "Assets/InventoryDragAndDrop/Scripts/ScriptableObject/InventoryObjects";
 
-		GUILayout.Label("Required fields to create your pickup-able object", bigBold);
+		GUILayout.Space(10);
 
-		GUILayout.Label("Chosen prefab must have Mesh Filter & Mesh Renderer");
-		GUILayout.Label("Default location of prefab is: \n Assets/InventoryDragAndDrop/Prefabs/ItemPrefabs/*ItemName*.prefab");
+		GUILayout.Label("Required fields to create your pickup-able object", bigBoldBlack);
+
+		GUILayout.Space(10);
+
+		GUILayout.Label("Chosen prefab must have Mesh Filter & Mesh Renderer", smallWhite);
+		GUILayout.Space(10);
+		GUILayout.Label(" Default location of prefab is: \n Assets/InventoryDragAndDrop/Prefabs/ItemPrefabs/*ItemName*.prefab", smallBlack);
+		GUILayout.Space(10);
 		prefab = (GameObject)EditorGUILayout.ObjectField("Prefab", prefab, typeof(GameObject), true);
 
-		GUILayout.Label("Default location of scriptable object is: \n Assets/InventoryDragAndDrop/Scripts/ScriptableObject/InventoryObjects");
+		GUILayout.Space(10);
+
+		GUILayout.Label(" Default location of scriptable object is: \n Assets/InventoryDragAndDrop/Scripts/ScriptableObject/InventoryObjects", smallBlack);
+		GUILayout.Space(10);
 		prefabLocation = EditorGUILayout.TextField("Location to Store Scriptable Object", prefabLocation);
 
-		itemName = EditorGUILayout.TextField("Item Name", itemName);
-		description = EditorGUILayout.TextField("Item Description", description);
-		sprite = (Sprite)EditorGUILayout.ObjectField("Item Sprite", sprite, typeof(Sprite), true);
-		durability = EditorGUILayout.IntField("Durability", durability);
+		GUILayout.Space(10);
 
+		itemName = EditorGUILayout.TextField("Item Name", itemName);
+		GUILayout.Space(10);
+		description = EditorGUILayout.TextField("Item Description", description);
+		GUILayout.Space(10);
+		sprite = (Sprite)EditorGUILayout.ObjectField("Item Sprite", sprite, typeof(Sprite), true);
+		GUILayout.Space(10);
+		durability = EditorGUILayout.IntField("Durability", durability);
+		GUILayout.Space(10);
 		popUpHolderLocation = "Assets/InventoryDragAndDrop/Prefabs/ItemChildren/PopUpHolder.prefab";
-		GUILayout.Label("Default location of PopUpHolder is: \n Assets/InventoryDragAndDrop/Prefabs/ItemChildren/PopUpHolder.prefab");
+		GUILayout.Label(" Default location of PopUpHolder is: \n Assets/InventoryDragAndDrop/Prefabs/ItemChildren/PopUpHolder.prefab", smallBlack);
+		GUILayout.Space(10);
 		popUpHolderLocation = EditorGUILayout.TextField("Location of PopUpHolder", popUpHolderLocation);
 
+		GUILayout.Space(10);
+
 		chosenItemType = (InventoryItem.ItemType)EditorGUILayout.EnumPopup("Item type:", chosenItemType);
+
+		GUILayout.Space(10);
 
 		if (GUILayout.Button("Create pickup-able object") == true)
 		{
@@ -145,7 +213,7 @@ public class InventoryDragDropEditorTool : EditorWindow
 
 			InventoryItem target_0 = newItem;
 			switch (chosenItemType)
-            {
+			{
 				case InventoryItem.ItemType.Hit:
 					var Wanted_Method0 = target_0.GetType().GetMethod("Hit");
 					var delegate_0 = Delegate.CreateDelegate(typeof(UnityAction), target_0, Wanted_Method0) as UnityAction;
@@ -180,7 +248,7 @@ public class InventoryDragDropEditorTool : EditorWindow
 					Debug.Log("Please enter a valid Usage function for : " + newItem.name);
 					break;
 
-            }
+			}
 
 			newItem.totalDurability = durability;
 
@@ -205,20 +273,34 @@ public class InventoryDragDropEditorTool : EditorWindow
 			newItem.itemPrefab = AssetDatabase.LoadAssetAtPath<GameObject>($"Assets/InventoryDragAndDrop/Prefabs/ItemPrefabs/{itemName}.prefab");
 			//newItem.itemPrefab = obj;
 		}
+	}
 
+	private void PickupAbleObjectSearch()
+    {
+		GUILayout.Space(10);
+		GUILayout.Label("Required fields to find an object created", bigBoldBlack);
 
-		GUILayout.Label(" \n \n Required fields to find an object created", bigBold);
+		GUILayout.Space(10);
 
-		GUILayout.Label("Will open chosen Inventory Item in the inspector, for easy editing");
+		GUILayout.Label("Will open chosen Inventory Item in the inspector, for easy editing", smallWhite);
+
+		GUILayout.Space(10);
 
 		selectedItem = (InventoryItem)EditorGUILayout.ObjectField("Inventory Item", selectedItem, typeof(InventoryItem), true);
 
+		GUILayout.Space(10);
+
 		if (GUILayout.Button("Open Inventory Item Data") == true)
-        {
+		{
 			AssetDatabase.OpenAsset(selectedItem);
-        }
+		}
+	}
 
-
-			GUILayout.EndVertical();
+	private void OnGUI()
+	{
+		DrawAllLayouts();
+		DrawHeader();
+		DrawSectionUno();
+		DrawSectionDos();
 	}
 }
