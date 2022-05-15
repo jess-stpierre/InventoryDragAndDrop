@@ -15,6 +15,16 @@ using UnityEditor;
 [CustomEditor(typeof(InventoryItem))]
 public class InventoryDragDropEditorTool : EditorWindow
 {
+	Color headerColor = new Color(255f / 255f, 101f / 255f, 0 / 255f, 1f);
+	Texture2D headerTexture;
+	Rect headerSize;
+
+	Texture2D sectionUnoTexture;
+	Rect sectionUnoSize;
+
+	Texture2D sectionDosTexture;
+	Rect sectionDosSize;
+
 	[MenuItem("Tools/InventoryDragDropEditorTool")]
 	public static void ShowWindow()
 	{
@@ -38,8 +48,50 @@ public class InventoryDragDropEditorTool : EditorWindow
 
 	private InventoryItem selectedItem;
 
+    private void OnEnable()
+    {
+		InitializeTextures();
+	}
+
+	private void InitializeTextures()
+    {
+		headerTexture = new Texture2D(1, 1);
+		headerTexture.SetPixel(0, 0, headerColor);
+		headerTexture.Apply();
+    }
+
+	private void DrawAllLayouts()
+    {
+		headerSize.x = 0;
+		headerSize.y = 0;
+		headerSize.width = Screen.width;
+		headerSize.height = 50;
+
+		GUI.DrawTexture(headerSize, headerTexture);
+    }
+
+	private void DrawHeader()
+    {
+
+    }
+
+	private void DrawSectionUnoSettings()
+    {
+
+    }
+
+	private void DrawSectionDosSettings()
+	{
+
+	}
+
 	private void OnGUI()
 	{
+		DrawAllLayouts();
+		DrawHeader();
+		DrawSectionUnoSettings();
+		DrawSectionDosSettings();
+
 		GUILayout.Space(10);
 		GUILayout.BeginVertical();
 
@@ -83,8 +135,6 @@ public class InventoryDragDropEditorTool : EditorWindow
 
 			prefab.AddComponent<Object>();
 
-			
-
 			InventoryItem newItem = ScriptableObject.CreateInstance<InventoryItem>();
 			newItem.name = itemName;
 			AssetDatabase.CreateAsset(newItem, $"{prefabLocation}/{itemName}.asset");
@@ -92,9 +142,6 @@ public class InventoryDragDropEditorTool : EditorWindow
 			newItem.itemDescription = description;
 			newItem.itemImage = sprite;
 			newItem.currentItemType = chosenItemType;
-
-			
-			
 
 			InventoryItem target_0 = newItem;
 			switch (chosenItemType)
