@@ -160,7 +160,7 @@ public class InventoryDragDropEditorTool : EditorWindow
 		GUILayout.Space(10);
 		GUILayout.Label(" Default location of prefab is: \n Assets/InventoryDragAndDrop/Prefabs/ItemPrefabs/*ItemName*.prefab", smallBlack);
 		GUILayout.Space(10);
-		prefab = (GameObject)EditorGUILayout.ObjectField("Prefab", prefab, typeof(GameObject), true);
+		prefab = (GameObject)EditorGUILayout.ObjectField("Prefab", prefab, typeof(GameObject), false);
 
 		GUILayout.Space(10);
 
@@ -250,28 +250,28 @@ public class InventoryDragDropEditorTool : EditorWindow
 
 			}
 
+			GameObject spawnedPrefab = (GameObject) PrefabUtility.InstantiatePrefab(prefab);
+
 			newItem.totalDurability = durability;
 
-			prefab.GetComponent<Object>().inventoryItem = newItem;
+			spawnedPrefab.GetComponent<Object>().inventoryItem = newItem;
 
 			UnityEngine.Object popupHolder = AssetDatabase.LoadAssetAtPath($"{popUpHolderLocation}", typeof(GameObject));
-			PrefabUtility.InstantiatePrefab(popupHolder, prefab.transform);
+			PrefabUtility.InstantiatePrefab(popupHolder, spawnedPrefab.transform);
 			GameObject popupHolderOBJ = (GameObject)popupHolder;
 
-			PopUp target = prefab.transform.GetChild(0).gameObject.GetComponent<PopUp>();
+			PopUp target = spawnedPrefab.transform.GetChild(0).gameObject.GetComponent<PopUp>();
 
 			var WantedMethod1 = target.GetType().GetMethod("ShowPopup");
 			var delegate1 = Delegate.CreateDelegate(typeof(UnityAction), target, WantedMethod1) as UnityAction;
-			UnityEventTools.AddPersistentListener(prefab.GetComponent<Object>().showPopup, delegate1);
+			UnityEventTools.AddPersistentListener(spawnedPrefab.GetComponent<Object>().showPopup, delegate1);
 
 			var WantedMethod2 = target.GetType().GetMethod("HidePopup");
 			var delegate2 = Delegate.CreateDelegate(typeof(UnityAction), target, WantedMethod2) as UnityAction;
-			UnityEventTools.AddPersistentListener(prefab.GetComponent<Object>().hidePopup, delegate2);
+			UnityEventTools.AddPersistentListener(spawnedPrefab.GetComponent<Object>().hidePopup, delegate2);
 
-			GameObject obj = PrefabUtility.SaveAsPrefabAssetAndConnect(prefab, $"Assets/InventoryDragAndDrop/Prefabs/ItemPrefabs/{itemName}.prefab", InteractionMode.UserAction);
-			//SerializedObject serializedObject = new UnityEditor.SerializedObject(newItem);
+			GameObject obj = PrefabUtility.SaveAsPrefabAssetAndConnect(spawnedPrefab, $"Assets/InventoryDragAndDrop/Prefabs/ItemPrefabs/{itemName}.prefab", InteractionMode.UserAction);
 			newItem.itemPrefab = AssetDatabase.LoadAssetAtPath<GameObject>($"Assets/InventoryDragAndDrop/Prefabs/ItemPrefabs/{itemName}.prefab");
-			//newItem.itemPrefab = obj;
 		}
 	}
 

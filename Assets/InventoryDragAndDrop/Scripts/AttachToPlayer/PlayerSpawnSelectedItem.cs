@@ -55,7 +55,7 @@ public class PlayerSpawnSelectedItem : MonoBehaviour
 
 			if(newChild == null && newInventoryItem == null && obj != null)
             {
-				GameObject spawnedInHand = Instantiate(obj, spawnSpot.transform);
+				GameObject spawnedInHand = Instantiate(obj, spawnSpot.transform.position, Quaternion.identity, spawnSpot.transform);
 				spawnedInHand.transform.GetChild(0).gameObject.SetActive(false);
 				newChild = spawnedInHand;
 				newInventoryItem = spawnedInHand.gameObject.GetComponent<Object>().inventoryItem;

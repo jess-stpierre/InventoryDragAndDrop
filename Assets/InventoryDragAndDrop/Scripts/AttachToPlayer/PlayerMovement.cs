@@ -21,7 +21,12 @@ public class PlayerMovement : MonoBehaviour
     private void FixedUpdate() //Fixed update so the movement isnt laggy
     {
         //if inventory is closed allow player to move
-        if(UIEventBroker.TriggerOnCheckInventoryStatus() == false) Movement();
+        if (UIEventBroker.TriggerOnCheckInventoryStatus() == false)
+        {
+            rb.constraints = RigidbodyConstraints.None;
+            Movement();
+        }
+        else rb.constraints = RigidbodyConstraints.FreezeAll;
     }
 
     /// <summary>
