@@ -8,6 +8,7 @@ This is a standalone inventory system with an editor tool called: InventoryDragD
 This tool allows for easy item creation and editing.
 The instructions on how to use the InventoryDragDropEditorTool are at this link below:
 https://docs.google.com/document/d/12TGHH9xqynuwSjK0Szlj_OH2_hxjxCBf3rzIYi3GAV0/edit?usp=sharing
+![image](https://user-images.githubusercontent.com/47193408/169618799-4422d90c-851c-4a92-a456-53213d9a80dc.png)
 -------------------------
 
 If you prefer to download this project as a Unity package, please do so here:
