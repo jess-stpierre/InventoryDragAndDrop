@@ -9,7 +9,7 @@ This tool allows for easy item creation and editing.
 The instructions on how to use the InventoryDragDropEditorTool are at this link below:
 https://docs.google.com/document/d/12TGHH9xqynuwSjK0Szlj_OH2_hxjxCBf3rzIYi3GAV0/edit?usp=sharing
 -------------------------
-Here is a quick screenshot of the tool. I am no artist so I apologize for it's look.
+Here is a screenshot of the tool. I am no artist so I apologize for it's look.
 ![image](https://user-images.githubusercontent.com/47193408/169618799-4422d90c-851c-4a92-a456-53213d9a80dc.png)
 -------------------------
 
