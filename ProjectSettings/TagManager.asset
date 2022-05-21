@@ -8,6 +8,7 @@ TagManager:
   - Slot
   - Camera
   - Equipped
+  - PickableItem
   layers:
   - Default
   - TransparentFX

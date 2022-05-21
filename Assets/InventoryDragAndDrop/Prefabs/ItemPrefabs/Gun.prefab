@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 8761630643867260674}
   m_Layer: 0
   m_Name: Gun
-  m_TagString: PickableItem
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

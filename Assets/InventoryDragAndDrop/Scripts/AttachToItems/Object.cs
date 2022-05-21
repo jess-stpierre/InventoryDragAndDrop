@@ -28,8 +28,6 @@ public class Object : MonoBehaviour
         UIEventBroker.OnCheckPopupStatus += SetOnCheckPopupStatus;
         hidePopup.Invoke();
         popupActive = false;
-
-        if (gameObject.CompareTag("PickableItem") == false) gameObject.tag = "PickableItem";
     }
 
 	private void OnEnable()
