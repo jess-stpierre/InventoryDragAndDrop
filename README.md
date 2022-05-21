@@ -17,7 +17,7 @@ If you prefer to download this project as a Unity package, please do so here:
 https://drive.google.com/drive/folders/1dbiLCKC8GSwRPCgz524r3ytFuqjBDsnO?usp=sharing
 -------------------------
 
-Please keep in mind that 2nd child of the Player gameObject called: "ItemSpawnSpot"'s scale is proportionally adjusted to the player size. The Player's default scale is 2 and so the ItemSpawnSpot's is 0.5. This is done so the items in the hand of the player don't change scale/ size, when spawned in the hand of the player.
+Tip/ reminder: Please keep in mind that the 2nd child of the Player gameObject called: "ItemSpawnSpot"'s scale is proportionally adjusted to the player size. The Player's default scale is 2 and so the ItemSpawnSpot's is 0.5. This is done so the items in the hand of the player don't change scale/ size, when spawned in the hand of the player.
 --------------------------
 
 
