@@ -87,11 +87,15 @@ public class UIInventorySubscriber : MonoBehaviour
     private void SetOnOpenInventory()
     {
         inventoryParent.SetActive(true);
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.Confined;
     }
 
     private void SetOnCloseInventory()
     {
         inventoryParent.SetActive(false);
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
     }
 
     private bool SetOnCheckInventoryStatus()

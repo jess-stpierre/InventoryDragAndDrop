@@ -38,6 +38,7 @@ public class Toolbox : MonoBehaviour
 
     private void Start()
     {
-        Cursor.lockState = CursorLockMode.Confined;
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
     }
 }

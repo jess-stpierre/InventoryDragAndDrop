@@ -24,14 +24,9 @@ public class PlayerTurn : MonoBehaviour
     /// </summary>
     private void MouseTurningPlayer()
     {
-        Vector2 positionOnScreen = cam.WorldToViewportPoint(player.transform.position);
-        Vector2 mouseOnScreen = (Vector2)cam.ScreenToViewportPoint(Input.mousePosition);
-        angle = AngleBetweenPoints(positionOnScreen, mouseOnScreen);
+        float x = Input.GetAxis("Mouse X");
 
-       if(Vector2.Distance(positionOnScreen, mouseOnScreen) > 0.1f)
-	   {
-            player.transform.rotation = Quaternion.Euler(new Vector3(0f, angle, 0f));
-       }
+        player.transform.Rotate(0f, x, 0f);
     }
 
     void Update()
