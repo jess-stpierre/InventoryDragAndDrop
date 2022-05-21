@@ -55,4 +55,15 @@ public class PlayerInventory : MonoBehaviour
     {
         interactedOBJ = other.gameObject; //save the value of the object we want to pickup
     }
+
+    /// <summary>
+    /// Makes sure that we Hide the "Press E" popup on each Object that we leave the trigger volume from
+    /// </summary>
+    private void OnTriggerExit(Collider other)
+    {
+        if(other.gameObject == interactedOBJ)
+        {
+            interactedOBJ.GetComponent<Object>().hidePopup.Invoke();
+        }
+    }
 }

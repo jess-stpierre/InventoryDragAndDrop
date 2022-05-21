@@ -28,6 +28,8 @@ public class Object : MonoBehaviour
         UIEventBroker.OnCheckPopupStatus += SetOnCheckPopupStatus;
         hidePopup.Invoke();
         popupActive = false;
+
+        if (gameObject.CompareTag("PickableItem") == false) gameObject.tag = "PickableItem";
     }
 
 	private void OnEnable()
@@ -75,8 +77,11 @@ public class Object : MonoBehaviour
         if(other.gameObject.CompareTag("Player"))
         {
             //if the player is within the trigger zone collider than show "press e to interact" popup
-            showPopup.Invoke();
-            popupActive = true;
+            if (popupActive == false)
+            {
+                showPopup.Invoke();
+                popupActive = true;
+            }
         }
     }
 
