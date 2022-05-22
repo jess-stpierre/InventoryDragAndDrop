@@ -15,11 +15,34 @@ public class PlayerInventory : MonoBehaviour
     [SerializeField] private bool havePressInteractPopUp = true;
 
 	private GameObject interactedOBJ;
+    private SphereCollider interactedCollider;
 
     void Update()
     {
+        DistanceCheck();
         //if inventory UI is not active than we can allow player to pickup object
-        if(UIEventBroker.TriggerOnCheckInventoryStatus() == false) PickupOBJ();
+        if (UIEventBroker.TriggerOnCheckInventoryStatus() == false) PickupOBJ();
+    }
+
+    /// <summary>
+    /// Makes sure that we Hide the "Press E" popup on each Object that we leave the trigger volume from
+    /// </summary>
+    private void DistanceCheck()
+    {
+        if (interactedOBJ != null)
+        {
+            if (Vector3.Distance(interactedOBJ.transform.position, this.transform.position) > (interactedCollider.radius * interactedOBJ.transform.localScale.x))
+            {
+                interactedOBJ.GetComponent<Object>().hidePopup.Invoke();
+                interactedOBJ.GetComponent<Object>().popupActive = false;
+                interactedOBJ = null;
+            }
+            else
+            {
+                interactedOBJ.GetComponent<Object>().showPopup.Invoke();
+                interactedOBJ.GetComponent<Object>().popupActive = true;
+            }
+        }
     }
 
     /// <summary>
@@ -27,15 +50,12 @@ public class PlayerInventory : MonoBehaviour
     /// </summary>
     private void PickupOBJ()
     {
-        if (havePressInteractPopUp && UIEventBroker.TriggerOnCheckPopupStatus()) //returns true if there is a pop up showed on screen saying "press E to interact"
+        if (interactedOBJ != null && havePressInteractPopUp && interactedOBJ.GetComponent<Object>().popupActive == true) //returns true if there is a pop up showed on screen saying "press E to interact"
         {
             if (Input.GetKeyDown(interactKey))
             {
-                if (interactedOBJ != null)
-                {
-                    interactedOBJ.GetComponent<Object>().AttemptPickup();
-                    interactedOBJ = null;
-                }
+                interactedOBJ.GetComponent<Object>().AttemptPickup();
+                interactedOBJ = null;
             }
         }
         else if (havePressInteractPopUp == false && interactedOBJ != null)
@@ -53,18 +73,19 @@ public class PlayerInventory : MonoBehaviour
     /// </summary>
     private void OnTriggerStay(Collider other)
     {
-        interactedOBJ = other.gameObject; //save the value of the object we want to pickup
-    }
-
-    /// <summary>
-    /// Makes sure that we Hide the "Press E" popup on each Object that we leave the trigger volume from
-    /// </summary>
-    private void OnTriggerExit(Collider other)
-    {
-        if(other.gameObject == interactedOBJ)
+        if (other.GetComponent<SphereCollider>() != null)
         {
-            interactedOBJ.GetComponent<Object>().hidePopup.Invoke();
+            SphereCollider[] allInteractedSphereCols = other.gameObject.GetComponents<SphereCollider>();
+
+            foreach (SphereCollider SphereCol in allInteractedSphereCols)
+            {
+                if (other.GetComponent<SphereCollider>() != null && SphereCol.isTrigger == true)
+                {
+                    interactedOBJ = other.gameObject; //save the value of the object we want to pickup
+                    interactedCollider = SphereCol;
+                }
+            }
         }
-        else other.gameObject.GetComponent<Object>().hidePopup.Invoke();
+        else interactedOBJ = null;
     }
 }

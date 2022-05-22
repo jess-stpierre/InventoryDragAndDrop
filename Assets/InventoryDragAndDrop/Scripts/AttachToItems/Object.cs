@@ -21,11 +21,10 @@ public class Object : MonoBehaviour
     public UnityEvent showPopup; 
     public UnityEvent hidePopup;
 
-    private bool popupActive = false;
+    public bool popupActive = false;
 
     private void Awake()
     {
-        UIEventBroker.OnCheckPopupStatus += SetOnCheckPopupStatus;
         hidePopup.Invoke();
         popupActive = false;
     }
@@ -37,13 +36,11 @@ public class Object : MonoBehaviour
 
 	private void OnDestroy() 
     {
-        UIEventBroker.OnCheckPopupStatus -= SetOnCheckPopupStatus;
         currentDurability = 0;
     }
 
     private void OnDisable() 
     {
-        UIEventBroker.OnCheckPopupStatus -= SetOnCheckPopupStatus;
         currentDurability = 0;
     }
 
@@ -59,38 +56,6 @@ public class Object : MonoBehaviour
         this.gameObject.GetComponent<Rigidbody>().collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
         UIEventBroker.TriggerOnRemoveItem(inventoryItem); //make sure we remove the item from the inventory hotbar
         this.gameObject.transform.GetChild(0).gameObject.SetActive(true);
-        // showPopup.Invoke();
-        // popupActive = true;
-        hidePopup.Invoke();
-        popupActive = false;
-    }
-
-	private bool SetOnCheckPopupStatus()
-	{
-        return popupActive;
-	}
-
-	private void OnTriggerEnter(Collider other) 
-    {
-        if(other.gameObject.CompareTag("Player"))
-        {
-            //if the player is within the trigger zone collider than show "press e to interact" popup
-            if (popupActive == false)
-            {
-                showPopup.Invoke();
-                popupActive = true;
-            }
-        }
-    }
-
-    private void OnTriggerExit(Collider other)
-    {
-        if(other.gameObject.CompareTag("Player"))
-        {
-            //if player is far from trigger zone collider than hide the "press e to interact" popup
-            hidePopup.Invoke();
-            popupActive = false;
-        }
     }
 
     /// <summary>
@@ -99,6 +64,7 @@ public class Object : MonoBehaviour
     public void AttemptPickup()
     {
         UIEventBroker.TriggerOnAddToSlots(inventoryItem);
+        popupActive = false;
         this.gameObject.SetActive(false);
         hidePopup.Invoke();
     }

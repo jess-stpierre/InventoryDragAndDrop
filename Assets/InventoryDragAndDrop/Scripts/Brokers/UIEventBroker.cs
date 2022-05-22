@@ -9,16 +9,11 @@
 public class UIEventBroker
 {
 	public delegate bool BoolReturnEvent();
-	public static event BoolReturnEvent OnCheckPopupStatus, OnCheckInventoryStatus;
+	public static event BoolReturnEvent OnCheckInventoryStatus;
 	public delegate void VoidEvent();
 	public static event VoidEvent OnOpenInventory, OnCloseInventory, OnDraggedItemToSelectedSlot;
 	public delegate void InventoryItemEvent(InventoryItem inventoryItem);
 	public static event InventoryItemEvent OnRemoveItem, OnAddToSlots;
-
-	public static bool TriggerOnCheckPopupStatus()
-	{
-		return OnCheckPopupStatus.Invoke();
-	}
 
 	public static void TriggerOnOpenInventory()
 	{
