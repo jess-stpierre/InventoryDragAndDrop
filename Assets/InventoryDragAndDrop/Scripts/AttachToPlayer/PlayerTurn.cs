@@ -10,6 +10,9 @@ public class PlayerTurn : MonoBehaviour
     [SerializeField] private GameObject player;
     [SerializeField] private Camera cam;
     private float angle = 0f;
+    [Header("Default Unity old input system mouse movement needed is: Mouse X")]
+    [Tooltip("If using the old input system make sure you have an axes that controls the horizontal mouse movement")]
+    [SerializeField] private string mouseXInput = "Mouse X";
 
     /// <summary>
     /// Helper function
@@ -24,7 +27,7 @@ public class PlayerTurn : MonoBehaviour
     /// </summary>
     private void MouseTurningPlayer()
     {
-        float x = Input.GetAxis("Mouse X");
+        float x = Input.GetAxis(mouseXInput);
 
         player.transform.Rotate(0f, x, 0f);
     }
