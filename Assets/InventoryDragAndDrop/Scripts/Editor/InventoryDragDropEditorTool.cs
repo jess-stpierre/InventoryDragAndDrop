@@ -31,18 +31,14 @@ public class InventoryDragDropEditorTool : EditorWindow
 	public static void ShowWindow()
 	{
 		InventoryDragDropEditorTool window = GetWindow<InventoryDragDropEditorTool>();
-		window.minSize = new Vector2(583f, 850f);
+		window.minSize = new Vector2(583f, 900f);
 	}
 
 	private GameObject prefab;
-	private int numberSubmittedNewOBJ;
 	private string itemName;
 	private string description;
 	private Sprite sprite;
-	//private UnityEvent function;
-	//SerializedProperty usage;
 	private int durability;
-	//private GameObject popupHolder;
 	private string prefabLocation;
 	private string popUpHolderLocation;
 
@@ -56,7 +52,11 @@ public class InventoryDragDropEditorTool : EditorWindow
 	private GUIStyle smallWhite;
 	private GUIStyle smallBlack;
 
-    private void OnEnable()
+
+	private Vector3 positionOfPrefab;
+	private Vector3 rotationOfPrefab;
+
+	private void OnEnable()
     {
 		bigBoldWhite = new GUIStyle();
 		bigBoldWhite.fontSize = 20;
@@ -146,8 +146,6 @@ public class InventoryDragDropEditorTool : EditorWindow
 		GUILayout.EndArea();
 	}
 
-	private Vector3 positionOfPrefab;
-	private Vector3 rotationOfPrefab;
 
 	private void PickupAbleObjectCreation()
 	{
@@ -200,8 +198,6 @@ public class InventoryDragDropEditorTool : EditorWindow
 
 		if (GUILayout.Button("Create pickup-able object") == true)
 		{
-			numberSubmittedNewOBJ++;
-
 			if (prefab.GetComponent<SphereCollider>() == null) prefab.AddComponent<SphereCollider>();
 			prefab.GetComponent<SphereCollider>().isTrigger = true;
 			prefab.GetComponent<SphereCollider>().radius = 3f;
@@ -274,8 +270,6 @@ public class InventoryDragDropEditorTool : EditorWindow
 			if (spawnedPrefab.transform.childCount == 0) PrefabUtility.InstantiatePrefab(popupHolder, spawnedPrefab.transform);
 			else if(spawnedPrefab.transform.GetChild(0).gameObject.GetComponent<PopUp>() == null) PrefabUtility.InstantiatePrefab(popupHolder, spawnedPrefab.transform);
 
-			//GameObject popupHolderOBJ = (GameObject)popupHolder;
-
 			PopUp target = spawnedPrefab.transform.GetChild(0).gameObject.GetComponent<PopUp>();
 
 			var WantedMethod1 = target.GetType().GetMethod("ShowPopup");
@@ -286,7 +280,7 @@ public class InventoryDragDropEditorTool : EditorWindow
 			var delegate2 = Delegate.CreateDelegate(typeof(UnityAction), target, WantedMethod2) as UnityAction;
 			if (spawnedPrefab.GetComponent<Object>().hidePopup.GetPersistentEventCount() == 0) UnityEventTools.AddPersistentListener(spawnedPrefab.GetComponent<Object>().hidePopup, delegate2);
 
-			GameObject obj = PrefabUtility.SaveAsPrefabAssetAndConnect(spawnedPrefab, $"Assets/InventoryDragAndDrop/Prefabs/ItemPrefabs/{itemName}.prefab", InteractionMode.UserAction);
+			PrefabUtility.SaveAsPrefabAssetAndConnect(spawnedPrefab, $"Assets/InventoryDragAndDrop/Prefabs/ItemPrefabs/{itemName}.prefab", InteractionMode.UserAction);
 			newItem.itemPrefab = AssetDatabase.LoadAssetAtPath<GameObject>($"Assets/InventoryDragAndDrop/Prefabs/ItemPrefabs/{itemName}.prefab");
 		}
 	}
