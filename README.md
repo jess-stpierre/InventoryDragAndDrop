@@ -17,7 +17,11 @@
 ###### https://drive.google.com/drive/folders/1dbiLCKC8GSwRPCgz524r3ytFuqjBDsnO?usp=sharing
 -------------------------
 
-###### ***Tip/ reminder:*** Please keep in mind that the 2nd child of the Player gameObject called: "ItemSpawnSpot"'s scale is proportionally adjusted to the player size. The Player's default scale is 2 and so the ItemSpawnSpot's is 0.5. This is done so the items in the hand of the player don't change scale/ size, when spawned in the hand of the player.
+###### ***Tip/ reminder 01 :*** Please keep in mind that the 2nd child of the Player gameObject called: "ItemSpawnSpot"'s scale is proportionally adjusted to the player size. The Player's default scale is 2 and so the ItemSpawnSpot's is 0.5. This is done so the items in the hand of the player don't change scale/ size, when spawned in the hand of the player.
+--------------------------
+
+###### ***Tip/ reminder 02 :*** The current version of the InventoryDragAndDrop uses the unity default "old" input system. Make sure to have this old input system or both (new and old) enabled. This asset may be updated to the new input system later on! Will keep you all up to date.
+
 --------------------------
 
 
