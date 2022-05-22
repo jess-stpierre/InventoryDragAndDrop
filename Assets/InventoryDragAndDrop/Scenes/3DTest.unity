@@ -2701,6 +2701,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 1097924136}
   cam: {fileID: 534669904}
+  mouseXInput: Mouse X
 --- !u!4 &1153640700 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7457014817882025945, guid: fc9283f3bd6fb9e489e1606b0943c9fa,

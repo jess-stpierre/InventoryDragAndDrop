@@ -104,10 +104,10 @@ public class InventoryDragDropEditorTool : EditorWindow
 		sectionUnoSize.x = 0;
 		sectionUnoSize.y = 50;
 		sectionUnoSize.width = Screen.width;
-		sectionUnoSize.height = 600;
+		sectionUnoSize.height = 700;
 
 		sectionDosSize.x = 0;
-		sectionDosSize.y = 600;
+		sectionDosSize.y = 700;
 		sectionDosSize.width = Screen.width;
 		sectionDosSize.height = 170;
 
@@ -146,8 +146,11 @@ public class InventoryDragDropEditorTool : EditorWindow
 		GUILayout.EndArea();
 	}
 
+	private Vector3 positionOfPrefab;
+	private Vector3 rotationOfPrefab;
+
 	private void PickupAbleObjectCreation()
-    {
+	{
 		prefabLocation = "Assets/InventoryDragAndDrop/Scripts/ScriptableObject/InventoryObjects";
 
 		GUILayout.Space(10);
@@ -161,6 +164,12 @@ public class InventoryDragDropEditorTool : EditorWindow
 		GUILayout.Label(" Default location of prefab is: \n Assets/InventoryDragAndDrop/Prefabs/ItemPrefabs/*ItemName*.prefab", smallBlack);
 		GUILayout.Space(10);
 		prefab = (GameObject)EditorGUILayout.ObjectField("Prefab", prefab, typeof(GameObject), false);
+
+		GUILayout.Space(10);
+		positionOfPrefab = EditorGUILayout.Vector3Field("Position of Prefab", positionOfPrefab);
+		
+		GUILayout.Space(10);
+		rotationOfPrefab = EditorGUILayout.Vector3Field("Rotation of Prefab", rotationOfPrefab);
 
 		GUILayout.Space(10);
 
@@ -193,15 +202,15 @@ public class InventoryDragDropEditorTool : EditorWindow
 		{
 			numberSubmittedNewOBJ++;
 
-			prefab.AddComponent<SphereCollider>();
+			if (prefab.GetComponent<SphereCollider>() == null) prefab.AddComponent<SphereCollider>();
 			prefab.GetComponent<SphereCollider>().isTrigger = true;
 			prefab.GetComponent<SphereCollider>().radius = 3f;
 
-			prefab.AddComponent<BoxCollider>();
+			if (prefab.GetComponent<BoxCollider>() == null) prefab.AddComponent<BoxCollider>();
 			prefab.GetComponent<BoxCollider>().isTrigger = false;
 			prefab.GetComponent<BoxCollider>().size = Vector3.one;
 
-			prefab.AddComponent<Object>();
+			if (prefab.GetComponent<Object>() == null) prefab.AddComponent<Object>();
 
 			InventoryItem newItem = ScriptableObject.CreateInstance<InventoryItem>();
 			newItem.name = itemName;
@@ -250,25 +259,32 @@ public class InventoryDragDropEditorTool : EditorWindow
 
 			}
 
-			GameObject spawnedPrefab = (GameObject) PrefabUtility.InstantiatePrefab(prefab);
+
+			GameObject spawnedPrefab = (GameObject)PrefabUtility.InstantiatePrefab(prefab);
+
+			spawnedPrefab.transform.position = positionOfPrefab;
+			spawnedPrefab.transform.rotation = Quaternion.Euler(rotationOfPrefab.x, rotationOfPrefab.y, rotationOfPrefab.z);
 
 			newItem.totalDurability = durability;
 
-			spawnedPrefab.GetComponent<Object>().inventoryItem = newItem;
+			if(spawnedPrefab.GetComponent<Object>().inventoryItem == null) spawnedPrefab.GetComponent<Object>().inventoryItem = newItem;
 
 			UnityEngine.Object popupHolder = AssetDatabase.LoadAssetAtPath($"{popUpHolderLocation}", typeof(GameObject));
-			PrefabUtility.InstantiatePrefab(popupHolder, spawnedPrefab.transform);
-			GameObject popupHolderOBJ = (GameObject)popupHolder;
+
+			if (spawnedPrefab.transform.childCount == 0) PrefabUtility.InstantiatePrefab(popupHolder, spawnedPrefab.transform);
+			else if(spawnedPrefab.transform.GetChild(0).gameObject.GetComponent<PopUp>() == null) PrefabUtility.InstantiatePrefab(popupHolder, spawnedPrefab.transform);
+
+			//GameObject popupHolderOBJ = (GameObject)popupHolder;
 
 			PopUp target = spawnedPrefab.transform.GetChild(0).gameObject.GetComponent<PopUp>();
 
 			var WantedMethod1 = target.GetType().GetMethod("ShowPopup");
 			var delegate1 = Delegate.CreateDelegate(typeof(UnityAction), target, WantedMethod1) as UnityAction;
-			UnityEventTools.AddPersistentListener(spawnedPrefab.GetComponent<Object>().showPopup, delegate1);
+			if(spawnedPrefab.GetComponent<Object>().showPopup.GetPersistentEventCount() == 0) UnityEventTools.AddPersistentListener(spawnedPrefab.GetComponent<Object>().showPopup, delegate1);
 
 			var WantedMethod2 = target.GetType().GetMethod("HidePopup");
 			var delegate2 = Delegate.CreateDelegate(typeof(UnityAction), target, WantedMethod2) as UnityAction;
-			UnityEventTools.AddPersistentListener(spawnedPrefab.GetComponent<Object>().hidePopup, delegate2);
+			if (spawnedPrefab.GetComponent<Object>().hidePopup.GetPersistentEventCount() == 0) UnityEventTools.AddPersistentListener(spawnedPrefab.GetComponent<Object>().hidePopup, delegate2);
 
 			GameObject obj = PrefabUtility.SaveAsPrefabAssetAndConnect(spawnedPrefab, $"Assets/InventoryDragAndDrop/Prefabs/ItemPrefabs/{itemName}.prefab", InteractionMode.UserAction);
 			newItem.itemPrefab = AssetDatabase.LoadAssetAtPath<GameObject>($"Assets/InventoryDragAndDrop/Prefabs/ItemPrefabs/{itemName}.prefab");

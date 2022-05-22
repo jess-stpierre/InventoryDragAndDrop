@@ -3,7 +3,7 @@
 using UnityEngine;
 
 /// <summary>
-/// Allows the player to rotate based on mouse position on screen
+/// Allows the player to rotate based on mouse position
 /// </summary>
 public class PlayerTurn : MonoBehaviour
 {
@@ -13,14 +13,6 @@ public class PlayerTurn : MonoBehaviour
     [Header("Default Unity old input system mouse movement needed is: Mouse X")]
     [Tooltip("If using the old input system make sure you have an axes that controls the horizontal mouse movement")]
     [SerializeField] private string mouseXInput = "Mouse X";
-
-    /// <summary>
-    /// Helper function
-    /// </summary>
-    private float AngleBetweenPoints(Vector2 a, Vector2 b)
-    {
-        return Mathf.Atan2(b.x - a.x, b.y - a.y) * Mathf.Rad2Deg;
-    }
 
     /// <summary>
     /// Based on player position and mouse position, want to rotate the player accordingly
