@@ -10,7 +10,7 @@
 ###### https://docs.google.com/document/d/12TGHH9xqynuwSjK0Szlj_OH2_hxjxCBf3rzIYi3GAV0/edit?usp=sharing
 -------------------------
 ###### Here is a screenshot of the tool. I am no artist so I apologize for it's look.
-###### ![image](https://user-images.githubusercontent.com/47193408/169618799-4422d90c-851c-4a92-a456-53213d9a80dc.png)
+###### ![image](https://user-images.githubusercontent.com/47193408/169710238-8a59c976-ca0a-40e0-9db5-0727571e7cde.png)
 -------------------------
 
 ###### If you prefer to download this project as a Unity package, please do so here:
