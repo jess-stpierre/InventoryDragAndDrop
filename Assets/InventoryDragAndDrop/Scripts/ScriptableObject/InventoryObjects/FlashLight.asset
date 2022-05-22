@@ -14,13 +14,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemName: Flashlight
   itemDescription: Use this item to light up your path
-  itemImage: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
+  itemImage: {fileID: 21300000, guid: 1dbd659f08ca6d14499e8fd04b9f5c1b, type: 3}
   itemPrefab: {fileID: 5641241992387155625, guid: 3ba8d86c2bdeea845958dafa51dbcb22,
     type: 3}
   usage:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 11400000}
+        m_TargetAssemblyTypeName: 
         m_MethodName: Light
         m_Mode: 1
         m_Arguments:

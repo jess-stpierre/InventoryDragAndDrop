@@ -65,5 +65,6 @@ public class PlayerInventory : MonoBehaviour
         {
             interactedOBJ.GetComponent<Object>().hidePopup.Invoke();
         }
+        else other.gameObject.GetComponent<Object>().hidePopup.Invoke();
     }
 }
