@@ -1,4 +1,8 @@
 # InventoryDragAndDrop
+
+###### Tutorial and project description/ explanation is here: 
+###### https://youtu.be/6bypYwYd_CQ
+
 -------------------------
 ###### This project was created with ***Unity 2020.3.13f1***. Normally it should work from 2019 LTS up to 2021 LTS. If there are any problems with any of those version, please contact me: 
 ###### jessica.stpierregagne@gmail.com
